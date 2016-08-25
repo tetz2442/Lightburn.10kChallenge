@@ -28,7 +28,8 @@ module.exports = function(grunt) {
                 options: {
                     // remove console.* calls
                     compress: {
-                        drop_console: true
+                        drop_console: true,
+                        source_map: true
                     },
                     banner: '/* <%= pkg.name %> - v<%= pkg.version %> - ' +
                     '<%= grunt.template.today("yyyy-mm-dd") %> */'
