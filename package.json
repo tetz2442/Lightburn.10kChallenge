@@ -1,11 +1,11 @@
 {
   "name": "Lightburn.10kChallenge",
   "title": "10k Challenge",
-  "description" : "Lightburn a-k-apart challenge entry",
+  "description": "Lightburn a-k-apart challenge entry",
   "version": "1.0.0",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/Lightburn/Lightburn.10kChallenge.git"
+    "type": "git",
+    "url": "https://github.com/Lightburn/Lightburn.10kChallenge.git"
   },
   "devDependencies": {
     "grunt": "1.0.0",
@@ -16,6 +16,7 @@
     "grunt-contrib-uglify": "*",
     "grunt-contrib-watch": "*",
     "grunt-critical": "^0.2.1",
+    "grunt-svgmin": "^3.3.0",
     "less-plugin-autoprefix": "^1.5.1",
     "less-plugin-clean-css": "^1.5.1"
   }

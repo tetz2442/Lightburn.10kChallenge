@@ -28,9 +28,9 @@ module.exports = function(grunt) {
                 options: {
                     // remove console.* calls
                     compress: {
-                        drop_console: true,
-                        source_map: true
+                        drop_console: true
                     },
+                    sourceMap: true,
                     banner: '/* <%= pkg.name %> - v<%= pkg.version %> - ' +
                     '<%= grunt.template.today("yyyy-mm-dd") %> */'
                 },
@@ -45,7 +45,8 @@ module.exports = function(grunt) {
             dist: {
                 options: {
                     removeComments: true,
-                    collapseWhitespace: true
+                    collapseWhitespace: true,
+                    minifyJS: true
                 },
                 files: {
                     'dist/index.html': 'index-critical.html'
@@ -58,10 +59,35 @@ module.exports = function(grunt) {
                     base: './',
                     css: [
                         'dist/css/global.min.css'
+                    ],
+                    minify: true,
+                    dimensions: [
+                        {
+                            height: 900,
+                            width: 1300
+                        },
+                        {
+                            height: 600,
+                            width: 320
+                        }
                     ]
                 },
                 src: 'index.html',
                 dest: 'index-critical.html'
+            }
+        },
+        svgmin: {
+            options: {
+                plugins: [
+                    {
+                        removeViewBox: false
+                    }
+                ]
+            },
+            dist: {
+                files: {
+                    'dist/svgs/unicorn.svg': 'svgs/unicorn.svg'
+                }
             }
         },
         watch: {
@@ -79,6 +105,10 @@ module.exports = function(grunt) {
             htmlmin: {
                 files: ['*.html', '!index-critical.html'],
                 tasks: ['critical', 'htmlmin']
+            },
+            svgmin: {
+                files: ['svgs/*.svg'],
+                tasks: ['svgmin']
             }
         }
     });
@@ -91,5 +121,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-critical');
 
-    grunt.registerTask('default', ['less', 'uglify', 'critical', 'htmlmin', 'clean']);
+    grunt.registerTask('default', ['less', 'uglify', 'svgmin', 'critical', 'htmlmin', 'clean']);
 };
