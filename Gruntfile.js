@@ -13,14 +13,14 @@ module.exports = function(grunt) {
                     ]
                 },
                 files: {
-                    'dist/css/global.min.css': 'css/global.less'
+                    'css/global.min.css': 'src/css/global.less'
                 }
             }
         },
         /* Deletes folders/items */
         clean: {
             src: [
-                'scripts/public/compiled'
+                'src'
             ]
         },
         uglify: {
@@ -35,8 +35,8 @@ module.exports = function(grunt) {
                     '<%= grunt.template.today("yyyy-mm-dd") %> */'
                 },
                 files: {
-                    'dist/js/global.min.js': [
-                        'js/global.js'
+                    'js/global.min.js': [
+                        'src/js/global.js'
                     ]
                 }
             }
@@ -49,31 +49,8 @@ module.exports = function(grunt) {
                     minifyJS: true
                 },
                 files: {
-                    'dist/index.html': 'index-critical.html'
+                    'index.html': 'src/index.html'
                 }
-            }
-        },
-        critical: {
-            dist: {
-                options: {
-                    base: './',
-                    css: [
-                        'dist/css/global.min.css'
-                    ],
-                    minify: true,
-                    dimensions: [
-                        {
-                            height: 900,
-                            width: 1300
-                        },
-                        {
-                            height: 600,
-                            width: 320
-                        }
-                    ]
-                },
-                src: 'index.html',
-                dest: 'index-critical.html'
             }
         },
         svgmin: {
@@ -86,28 +63,27 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'dist/svgs/unicorn.svg': 'svgs/unicorn.svg'
+                    'svgs/unicorn.svg': 'src/svgs/unicorn.svg'
                 }
             }
         },
         watch: {
             less: {
-                files: ['css/*.less'],
+                files: ['src/css/*.less'],
                 tasks: ['less']
             },
             uglify: {
                 files: [
-                    'js/**/*.js',
-                    '!js/dist/*.js'
+                    'src/js/**/*.js'
                 ],
                 tasks: ['uglify']
             },
             htmlmin: {
-                files: ['*.html', '!index-critical.html'],
-                tasks: ['critical', 'htmlmin']
+                files: ['src/*.html'],
+                tasks: ['htmlmin']
             },
             svgmin: {
-                files: ['svgs/*.svg'],
+                files: ['src/svgs/*.svg'],
                 tasks: ['svgmin']
             }
         }
@@ -119,7 +95,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
-    grunt.loadNpmTasks('grunt-critical');
 
-    grunt.registerTask('default', ['less', 'uglify', 'svgmin', 'critical', 'htmlmin', 'clean']);
+    grunt.registerTask('default', ['less', 'uglify', 'svgmin', 'htmlmin']);
+    grunt.registerTask('prod', ['clean']);
 };

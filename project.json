@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "postrestore": [ "npm install" ],
+    "postbuild": [ "grunt clean" ]
+  }
+}
