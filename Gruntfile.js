@@ -63,7 +63,7 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'svgs/*.svg': 'src/svgs/*.svg'
+                    'svgs/cloud.svg': 'src/svgs/cloud.svg'
                 }
             }
         },
@@ -95,6 +95,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
+    grunt.loadNpmTasks('grunt-svgmin');
 
     grunt.registerTask('default', ['less', 'uglify', 'svgmin', 'htmlmin']);
     grunt.registerTask('prod', ['clean']);
