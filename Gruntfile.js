@@ -63,7 +63,7 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'svgs/unicorn.svg': 'src/svgs/unicorn.svg'
+                    'svgs/*.svg': 'src/svgs/*.svg'
                 }
             }
         },
