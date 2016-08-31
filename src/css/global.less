@@ -12,11 +12,6 @@
     }
 }
 
-@keyframes circle {
-    from { transform: rotate(15deg) translate(565%); }
-    to { transform: rotate(160deg) translate(565%); }
-}
-
 body {
     background: #000;
     margin: 0;
@@ -105,9 +100,14 @@ body {
 
 }
 
+@keyframes cloud {
+    from { transform: rotate(40deg) translate(565%); }
+    to { transform: rotate(140deg) translate(565%); }
+}
+
 /* http://www.useragentman.com/blog/2013/03/03/animating-circular-paths-using-css3-transitions/# */
 .cloud-holder {
-    animation: circle 30s infinite linear;
+    animation: cloud 36s infinite linear;
     height: 10%;
     left: 50%;
     margin: -5% 0 0 -5%;
@@ -117,25 +117,30 @@ body {
 }
 
 .cloud-holder:nth-child(2) {
+    animation-duration: 46s;
     animation-direction: reverse;
 }
 
 .cloud-holder:nth-child(3) {
-    animation-duration: 35s;
+    animation-duration: 43s;
+    animation-delay: 20s;
 }
 
 .cloud-holder:nth-child(4) {
-    animation-delay: -5s;
+    animation-duration: 40s;
     animation-direction: reverse;
+    animation-delay: -12s;
 }
 
 .cloud {
     fill: #fff;
+    stroke: fade(#000, 40%);
+    stroke-width: 1px;
     transform: rotate(90deg);
 }
 
 .section {
-    min-height: 100vh;
+    min-height: 200vh;
     position: relative;
 }
 
