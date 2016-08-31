@@ -28,7 +28,7 @@ module.exports = function(grunt) {
                 options: {
                     // remove console.* calls
                     compress: {
-                        drop_console: true
+                        //drop_console: true
                     },
                     sourceMap: true,
                     banner: '/* <%= pkg.name %> - v<%= pkg.version %> - ' +
