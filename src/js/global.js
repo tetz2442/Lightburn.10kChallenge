@@ -1,8 +1,8 @@
-(function(window, document, undefined) {
+(function(window, document) {
     'use strict';
 
     /*
-     * Simple ajax lib
+     * Simple ajax class
      */
     function Ajax() { }
 
@@ -80,6 +80,5 @@
             }
         });
     }
-
-
+    
 })(this, this.document);
