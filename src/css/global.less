@@ -12,8 +12,14 @@
     }
 }
 
+html {
+    font-size: 62.5%;
+}
+
 body {
     background: #000;
+    font-size: 16px;
+    font-size: 1.6rem;
     margin: 0;
 }
 
@@ -42,7 +48,7 @@ body {
     z-index: 1;
 }
 
-#timeline {
+#line {
     border-left: 2px dashed fade(#fff, 50%);
     left: 50%;
     margin-left: -1px;
@@ -154,8 +160,11 @@ body {
 }
 
 .section {
-    min-height: 200vh;
     position: relative;
+}
+
+.section--1 .timeline {
+    padding-top: 20vw;
 }
 
 /* http://codepen.io/saransh/pen/uJCFg */
@@ -184,12 +193,57 @@ body {
     z-index: 3;
 }
 
-#rocket {
-    height: 5vw;
+.rocket {
     left: 50%;
     position: fixed;
     top: 12vw;
-    transform: translateX(-50%) rotate(135deg);
+    transform: translateX(-50%);
     z-index: 4;
+}
+
+.rocket__img {
+    height: 5vw;
+    transform: rotate(135deg);
     width: 5vw;
+}
+
+.timeline {
+    list-style: none;
+    padding-left: 6.25%;
+    padding-right: 6.25%;
+    position: relative;
+    z-index: 5;
+}
+
+.timeline > li {
+    background: #fff;
+    margin-bottom: 10rem;
+    margin-top: 5rem;
+    padding: 1rem;
+}
+
+.timeline time {
+    display: block;
+}
+
+.timeline p {
+    margin: 0;
+}
+
+@media all and (min-width: 600px) {
+    .timeline:after {
+        content: '';
+        clear: both;
+        display: table;
+    }
+
+    .timeline > li {
+        clear: both;
+        float: left;
+        width: 39.5%;
+    }
+    
+    .timeline > li:nth-child(even) {
+        float: right;
+    }
 }
