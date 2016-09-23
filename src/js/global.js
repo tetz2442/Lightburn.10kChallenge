@@ -47,12 +47,32 @@
         }
     };
 
+    // load a script file
+    function loadScript(url, callback) {
+        var script = document.createElement('script');
+        script.src = url;
+        script.async = true;
+        script.onload = function () {
+            callback();
+        };
+
+        document.head.appendChild(script);
+    }
+
+    /*
+     * Helpers
+     */
     function createCloud(svg) {
         var div = document.createElement('div');
         div.className = 'cloud-holder';
         div.innerHTML = svg;
         return div;
     }
+
+    /*
+     * Logic
+     */
+    
 
     /*
      * Figure out what the current browser supports
@@ -78,6 +98,10 @@
                     earths[i].appendChild(createCloud(data));
                 }
             }
+        });
+
+        loadScript('https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/TweenMax.min.js', function() {
+            console.log('script loaded');
         });
     }
 
