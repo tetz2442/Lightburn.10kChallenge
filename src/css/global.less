@@ -12,6 +12,18 @@
     }
 }
 
+@keyframes rocketFadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -100%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
 html {
     font-size: 62.5%;
 }
@@ -49,7 +61,7 @@ body {
 }
 
 #line {
-    border-left: 2px dashed fade(#fff, 50%);
+    border-left: 2px dashed fade(#fff, 20%);
     left: 50%;
     margin-left: -1px;
     position: absolute;
@@ -91,7 +103,7 @@ body {
 
 .earth:not(.earth--btm) {
     animation: earthFadeIn 1000ms 700ms ease 1;
-    animation-fill-mode:forwards;
+    animation-fill-mode: forwards;
     opacity: 0;
 }
 
@@ -183,28 +195,41 @@ body {
     box-shadow:  0 0 200px 40px rgba(112, 139, 162, 0.5),
                  inset 0 0 60px 20px rgba(112, 139, 162, 0.45);
     left: 50%;
-    height: 70vh;
+    height: 60vw;
     max-height: 70vw;
     max-width: 70vw;
     position: absolute;
     transform: translate(-50%, -50%);
     top: 50%;
-    width: 70vh;
+    width: 60vw;
     z-index: 3;
 }
 
+.moon__flag {
+    bottom: 100%;
+    height: auto;
+    margin-bottom: -1px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8%;
+}
+
 .rocket {
+    animation: rocketFadeIn 1000ms 1400ms ease 1;
+    animation-fill-mode:forwards;
     left: 50%;
     position: fixed;
-    top: 12vw;
+    opacity: 0;
+    top: 15vw;
     transform: translateX(-50%);
     z-index: 4;
 }
 
 .rocket__img {
-    height: 5vw;
-    transform: rotate(135deg);
-    width: 5vw;
+    height: 30vw;
+    transform: rotate(180deg);
+    width: auto;
 }
 
 .timeline {
@@ -216,7 +241,7 @@ body {
 }
 
 .timeline > li {
-    background: #fff;
+    background: fade(#fff, 80%);
     margin-bottom: 10rem;
     margin-top: 5rem;
     padding: 1rem;
@@ -231,6 +256,10 @@ body {
 }
 
 @media all and (min-width: 600px) {
+    .rocket__img {
+        height: 20vw;
+    }
+
     .timeline:after {
         content: '';
         clear: both;
@@ -238,6 +267,7 @@ body {
     }
 
     .timeline > li {
+        background: #fff;
         clear: both;
         float: left;
         width: 39.5%;
@@ -245,5 +275,16 @@ body {
     
     .timeline > li:nth-child(even) {
         float: right;
+    }
+}
+
+@media all and (min-width: 992px) {
+    .moon {
+        height: 30vw;
+        width: 30vw;
+    }
+
+    .rocket__img {
+        height: 10vw;
     }
 }
