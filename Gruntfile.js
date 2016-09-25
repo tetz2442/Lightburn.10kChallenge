@@ -63,9 +63,11 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'svgs/cloud.svg': 'src/svgs/cloud.svg',
-                    'svgs/rocket.svg': 'src/svgs/rocket.svg',
-                    'svgs/flag.svg': 'src/svgs/flag.svg'
+                    'svgs/cl.svg': 'src/svgs/cloud.svg',
+                    'svgs/r.svg': 'src/svgs/rocket.svg',
+                    'svgs/c-m.svg': 'src/svgs/command-module.svg',
+                    'svgs/c-a-l-m.svg': 'src/svgs/command-and-lunar-module.svg',
+                    'svgs/fl.svg': 'src/svgs/flag.svg'
                 }
             }
         },

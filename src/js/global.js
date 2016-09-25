@@ -135,8 +135,9 @@
     function section2Scroll(windowTop) {
         var rect = section2.getBoundingClientRect();
         //console.log(rect);
-        if(rect.top <= 0) {
+        if(rect.top - window.innerHeight <= 0) {
             rocket.classList.add('rocket--animate-top');
+            rocket.classList.add('rocket--delay-remove');
         }
         else {
             rocket.classList.remove('rocket--animate-top');
@@ -150,12 +151,16 @@
             section3Rect = section3.getBoundingClientRect(),
             fromTop = (windowHeight - moonHeight) / 2;
 
+        // are we above section 3?
         if(section3Rect.top - fromTop > 0) {
             moon.classList.remove('moon--fixed');
+            rocket.classList.remove('rocket--hide');
             inPastSection3 = false;
         }
+        // are we below section 3?
         else if(section3Rect.top - fromTop <= 0) {
             moon.classList.add('moon--fixed');
+            rocket.classList.add('rocket--hide');
             inPastSection3 = true;
         }
 
@@ -165,16 +170,24 @@
                 moonOffsetTop = getElementOffsetTop(moon),
                 moonBottom = moonOffsetTop + moonHeight;
 
+            // are we above the bottom of section 3?
             if (windowTop < section3OffsetTop + section3Height + fromTop - windowHeight) {
                 moon.classList.remove('moon--bottom');
+                rocket.classList.add('rocket--hide');
+                rocket.classList.remove('rocket--command');
             }
+            // are below section 3 bottom?
             else if (moonBottom >= section3OffsetTop + section3Height) {
                 moon.classList.add('moon--bottom');
+
+                console.log('below section 3')
+                if(!rocket.classList.contains('rocket--command')) {
+                    rocket.classList.add('rocket--command');
+                }
+                rocket.classList.remove('rocket--hide');
             }
         }
     }
-
-
 
     /*
      * Figure out what the current browser supports
@@ -188,7 +201,7 @@
         var cloud;
 
         ajax.send({
-            url: 'svgs/cloud.svg',
+            url: 'svgs/cl.svg',
             type: 'get',
             success: function(data) {
                 var earths = document.querySelectorAll('.earth__circle');

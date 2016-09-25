@@ -24,6 +24,16 @@
     }
 }
 
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
 html {
     font-size: 62.5%;
 }
@@ -179,6 +189,10 @@ body {
     padding-top: 20vw;
 }
 
+.section--5 .timeline {
+    padding-bottom: 20vw;
+}
+
 .section--expand {
     height: 300vh;
 }
@@ -227,19 +241,47 @@ body {
     transform: translateX(-50%);
 }
 
-.moon__flag {
+.moon__flag,
+.moon__lunar {
     bottom: 100%;
     height: auto;
-    margin-bottom: -1px;
     position: absolute;
     left: 50%;
-    transform: translateX(-50%);
     width: 8%;
+}
+
+.moon__flag {
+    margin-bottom: -1px;
+}
+
+.moon__lunar {
+    transform: translateX(-100%);
+}
+
+@keyframes moon-command {
+    from { transform: rotate(-90deg) translate(350%); }
+    to { transform: rotate(270deg) translate(350%); }
+}
+
+.moon__command-holder {
+    animation: moon-command 30s infinite linear;
+    height: 20%;
+    left: 50%;
+    margin: -10% 0 0 -10%;
+    position: absolute;
+    top: 50%;
+    width: 20%;
+}
+
+.moon__command {
+    height: 100%;
+    transform: rotate(180deg);
+    width: 100%;
 }
 
 .rocket {
     animation: rocketFadeIn 1000ms 1400ms ease 1;
-    animation-fill-mode:forwards;
+    animation-fill-mode: forwards;
     left: 50%;
     position: fixed;
     opacity: 0;
@@ -254,10 +296,40 @@ body {
     transition-duration: 1000ms;
 }
 
+.rocket--delay-remove {
+    animation-delay: 0ms;
+}
+
+.rocket--hide {
+    animation: fadeOut 250ms ease 1;
+    opacity: 0;
+}
+
 .rocket__img {
-    height: 30vw;
     transform: rotate(180deg);
     width: auto;
+}
+
+.rocket__img-default {
+    height: 30vw;
+}
+
+.rocket__img-module {
+    display: none;
+    height: 5vw;
+}
+
+.rocket--command {
+    animation: none;
+    opacity: 1;
+}
+
+.rocket--command .rocket__img-default {
+    display: none;
+}
+
+.rocket--command .rocket__img-module {
+    display: block;
 }
 
 .timeline {
@@ -284,7 +356,7 @@ body {
 }
 
 @media all and (min-width: 600px) {
-    .rocket__img {
+    .rocket__img-default {
         height: 20vw;
     }
 
@@ -312,7 +384,7 @@ body {
         width: 30vw;
     }
 
-    .rocket__img {
+    .rocket__img-default {
         height: 10vw;
     }
 }
