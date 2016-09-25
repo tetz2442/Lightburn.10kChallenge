@@ -215,9 +215,9 @@
             }
         });
 
-        loadScript('https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/TweenMax.min.js', function() {
+        //loadScript('https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/TweenMax.min.js', function() {
             init();
-        });
+        //});
     }
 
 })(this, this.document);
