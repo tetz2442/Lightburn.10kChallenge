@@ -179,6 +179,10 @@ body {
     padding-top: 20vw;
 }
 
+.section--expand {
+    height: 300vh;
+}
+
 /* http://codepen.io/saransh/pen/uJCFg */
 .moon {
     background-color: #ebebeb;
@@ -205,6 +209,24 @@ body {
     z-index: 3;
 }
 
+.moon--start-top {
+    top: 0;
+    transform: translateX(-50%);
+}
+
+.moon--fixed {
+    position: fixed;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.moon--bottom {
+    bottom: 0;
+    position: absolute;
+    top: auto;
+    transform: translateX(-50%);
+}
+
 .moon__flag {
     bottom: 100%;
     height: auto;
@@ -223,7 +245,13 @@ body {
     opacity: 0;
     top: 15vw;
     transform: translateX(-50%);
+    transition: all 200ms;
     z-index: 4;
+}
+
+.rocket--animate-top {
+    top: 5%;
+    transition-duration: 1000ms;
 }
 
 .rocket__img {

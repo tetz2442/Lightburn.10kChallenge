@@ -69,10 +69,112 @@
         return div;
     }
 
+    function getWindowTop() {
+        //http://stackoverflow.com/questions/3464876/javascript-get-window-x-y-position-for-scroll
+        return window.pageYOffset || document.documentElement.scrollTop;
+    }
+
+    //http://stackoverflow.com/questions/442404/retrieve-the-position-x-y-of-an-html-element
+    function getElementOffsetTop(el) {
+        var bodyRect = document.body.getBoundingClientRect(),
+            elemRect = el.getBoundingClientRect(),
+            offset   = elemRect.top - bodyRect.top;
+
+        return offset;
+    }
+
+    /* Scroll watcher */
+    function Watchers() {
+        var self = this;
+
+        window.addEventListener('scroll', function() {
+            var top = getWindowTop();
+            for (var i = 0; i < self.scrollCallbacks.length; i++) {
+                self.scrollCallbacks[i](top);
+            }
+        });
+        window.addEventListener('resize', function() {
+            for (var i = 0; i < self.resizeCallbacks.length; i++) {
+                self.resizeCallbacks[i]();
+            }
+        });
+
+        return this;
+    }
+
+    Watchers.prototype.scrollCallbacks = [];
+    Watchers.prototype.resizeCallbacks = [];
+
+    Watchers.prototype.addScrollCallback = function(callback, callImmediately) {
+        this.scrollCallbacks.push(callback);
+        if(callImmediately) callback(getWindowTop());
+    };
+
+    Watchers.prototype.addResizeCallback = function(callback) {
+        this.resizeCallbacks.push(callback);
+    };
+
+    var watcher = new Watchers();
+
     /*
      * Logic
      */
-    
+    var section2 = document.getElementById('js-s-2'),
+        section3 = document.getElementById('js-s-3'),
+        moon = document.getElementById('js-moon'),
+        rocket = document.getElementById('js-rocket');
+
+    function init() {
+        section3.classList.add('section--expand');
+        moon.classList.add('moon--start-top');
+
+        watcher.addScrollCallback(section2Scroll, true);
+        watcher.addScrollCallback(moonScroll, true);
+    }
+
+    function section2Scroll(windowTop) {
+        var rect = section2.getBoundingClientRect();
+        //console.log(rect);
+        if(rect.top <= 0) {
+            rocket.classList.add('rocket--animate-top');
+        }
+        else {
+            rocket.classList.remove('rocket--animate-top');
+        }
+    }
+
+    var inPastSection3 = false;
+    function moonScroll(windowTop) {
+        var windowHeight = window.innerHeight,
+            moonHeight = moon.clientHeight,
+            section3Rect = section3.getBoundingClientRect(),
+            fromTop = (windowHeight - moonHeight) / 2;
+
+        if(section3Rect.top - fromTop > 0) {
+            moon.classList.remove('moon--fixed');
+            inPastSection3 = false;
+        }
+        else if(section3Rect.top - fromTop <= 0) {
+            moon.classList.add('moon--fixed');
+            inPastSection3 = true;
+        }
+
+        if(inPastSection3) {
+            var section3Height = section3.clientHeight,
+                section3OffsetTop = getElementOffsetTop(section3),
+                moonOffsetTop = getElementOffsetTop(moon),
+                moonBottom = moonOffsetTop + moonHeight;
+
+            if (windowTop < section3OffsetTop + section3Height + fromTop - windowHeight) {
+                moon.classList.remove('moon--bottom');
+            }
+            else if (moonBottom >= section3OffsetTop + section3Height) {
+                moon.classList.add('moon--bottom');
+            }
+        }
+    }
+
+
 
     /*
      * Figure out what the current browser supports
@@ -101,7 +203,7 @@
         });
 
         loadScript('https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/TweenMax.min.js', function() {
-            console.log('script loaded');
+            init();
         });
     }
 
