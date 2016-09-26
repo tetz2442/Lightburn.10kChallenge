@@ -67,6 +67,8 @@ module.exports = function(grunt) {
                     'svgs/r.svg': 'src/svgs/rocket.svg',
                     'svgs/c-m.svg': 'src/svgs/command-module.svg',
                     'svgs/c-a-l-m.svg': 'src/svgs/command-and-lunar-module.svg',
+                    'svgs/l-m.svg': 'src/svgs/lunar-module.svg',
+                    'svgs/c-l-m.svg': 'src/svgs/command-large-module.svg',
                     'svgs/fl.svg': 'src/svgs/flag.svg'
                 }
             }

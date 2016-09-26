@@ -144,7 +144,8 @@
         }
     }
 
-    var inPastSection3 = false;
+    var inPastSection3 = false,
+        listenerAdded = false;
     function moonScroll(windowTop) {
         var windowHeight = window.innerHeight,
             moonHeight = moon.clientHeight,
@@ -170,11 +171,17 @@
                 moonOffsetTop = getElementOffsetTop(moon),
                 moonBottom = moonOffsetTop + moonHeight;
 
-            // are we above the bottom of section 3?
+            // are we above the bottom of section 3 and moving up?
             if (windowTop < section3OffsetTop + section3Height + fromTop - windowHeight) {
                 moon.classList.remove('moon--bottom');
+
+                if(!listenerAdded) {
+                    listenerAdded = true;
+                    rocket.addEventListener('animationend', removeCommandModule);
+                }
+
+                rocket.classList.remove('rocket--no-anim');
                 rocket.classList.add('rocket--hide');
-                rocket.classList.remove('rocket--command');
             }
             // are below section 3 bottom?
             else if (moonBottom >= section3OffsetTop + section3Height) {
@@ -182,11 +189,19 @@
 
                 console.log('below section 3')
                 if(!rocket.classList.contains('rocket--command')) {
+                    rocket.classList.add('rocket--no-anim');
                     rocket.classList.add('rocket--command');
                 }
                 rocket.classList.remove('rocket--hide');
             }
         }
+    }
+
+    function removeCommandModule() {
+        console.log('hola');
+        listenerAdded = false;
+        rocket.removeEventListener('animationend', removeCommandModule);
+        rocket.classList.remove('rocket--command');
     }
 
     /*
