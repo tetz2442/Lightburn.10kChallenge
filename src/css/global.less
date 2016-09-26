@@ -34,6 +34,16 @@
     }
 }
 
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
 html {
     font-size: 62.5%;
 }
@@ -183,6 +193,13 @@ body {
 
 .section {
     position: relative;
+
+    &:before,
+    &:after {
+        content: '';
+        clear: both;
+        display: table;
+    }
 }
 
 .section--1 .timeline {
@@ -195,6 +212,18 @@ body {
 
 .section--expand {
     height: 300vh;
+}
+
+.section__title {
+    color: #fff;
+    font-size: 3rem;
+    left: 2rem;
+    margin: 0;
+    position: absolute;
+    opacity: 0.6;
+    text-transform: uppercase;
+    top: 1rem;
+    z-index: 10;
 }
 
 /* http://codepen.io/saransh/pen/uJCFg */
@@ -298,21 +327,15 @@ body {
     transition-duration: 1000ms;
 }
 
-.rocket--delay-remove {
-    animation-delay: 0ms;
-}
-
-.rocket--command {
+.rocket--anim-remove {
+    animation: none;
     opacity: 1;
 }
 
-.rocket--hide {
-    animation: fadeOut 250ms ease 1;
-    opacity: 0;
-}
-
-.rocket--no-anim {
+.rocket--clm,
+.rocket--cm {
     animation: none;
+    opacity: 0;
 }
 
 .rocket__img {
@@ -324,23 +347,17 @@ body {
     height: 30vw;
 }
 
+.rocket__img-cl-module {
+    height: 18vw;
+}
+
 .rocket__img-module {
-    display: none;
     height: 5vw;
-}
-
-.rocket--command .rocket__img-default {
-    display: none;
-}
-
-.rocket--command .rocket__img-module {
-    display: block;
 }
 
 .timeline {
     list-style: none;
-    padding-left: 6.25%;
-    padding-right: 6.25%;
+    padding: 4rem 6.25%;
     position: relative;
     z-index: 5;
 }
