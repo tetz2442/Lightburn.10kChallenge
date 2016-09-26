@@ -252,10 +252,12 @@ body {
 
 .moon__flag {
     margin-bottom: -1px;
+    transform: rotate(3deg) translateX(24%);
 }
 
 .moon__lunar {
-    transform: translateX(-100%) rotate(180deg);
+    margin-bottom: -3px;
+    transform: translateX(-122%) rotate(173deg);
 }
 
 @keyframes moon-command {
@@ -359,6 +361,10 @@ body {
 }
 
 @media all and (min-width: 600px) {
+    .rocket__img-module {
+        height: 3vw;
+    }
+
     .rocket__img-default {
         height: 20vw;
     }
@@ -389,5 +395,9 @@ body {
 
     .rocket__img-default {
         height: 10vw;
+    }
+
+    .rocket__img-module {
+        height: 1.5vw;
     }
 }
