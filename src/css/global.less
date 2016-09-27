@@ -81,7 +81,7 @@ body {
 }
 
 #line {
-    border-left: 2px dashed fade(#fff, 20%);
+    border-left: 2px dashed fade(#fff, 10%);
     left: 50%;
     margin-left: -1px;
     position: absolute;
@@ -101,15 +101,15 @@ body {
     z-index: 3;
 
     &:before {
-        background: radial-gradient(fade(#457895, 70%) 59%,transparent 73%) no-repeat;
+        background: radial-gradient(fade(#457895, 40%) 59%, transparent 73%) no-repeat;
         content: '';
         border-radius: 50%;
         left: 50%;
-        height: 120%;
+        height: 140%;
         position: absolute;
         top: 50%;
         transform: translate(-50%, -50%);
-        width: 120%;
+        width: 140%;
         z-index: 1;
     }
 }
@@ -153,8 +153,13 @@ body {
 }
 
 @keyframes cloud {
-    from { transform: rotate(40deg) translate(565%); }
-    to { transform: rotate(140deg) translate(565%); }
+     from { transform: rotate(40deg) translate(600%); }
+     to { transform: rotate(140deg) translate(600%); }
+}
+
+@keyframes cloudBottom {
+    from { transform: rotate(220deg) translate(600%); }
+    to { transform: rotate(320deg) translate(600%); }
 }
 
 /* http://www.useragentman.com/blog/2013/03/03/animating-circular-paths-using-css3-transitions/# */
@@ -166,6 +171,10 @@ body {
     position: absolute;
     top: 50%;
     width: 10%;
+}
+
+.earth--btm .cloud-holder {
+    animation-name: cloudBottom;
 }
 
 .cloud-holder:nth-child(2) {
@@ -217,8 +226,9 @@ body {
 .section__title {
     color: #fff;
     font-size: 3rem;
-    left: 2rem;
+    left: 0;
     margin: 0;
+    padding-left: 6.25%;
     position: absolute;
     opacity: 0.6;
     text-transform: uppercase;
@@ -240,7 +250,7 @@ body {
     background-repeat: no-repeat;
     border-radius: 50%;
     box-shadow:  0 0 200px 40px rgba(112, 139, 162, 0.5),
-                 inset 0 0 60px 20px rgba(112, 139, 162, 0.45);
+                 inset 0 0 25px 8px rgba(112, 139, 162, 0.45);
     left: 50%;
     height: 60vw;
     max-height: 70vw;
@@ -316,13 +326,15 @@ body {
     left: 50%;
     position: fixed;
     opacity: 0;
-    top: 15vw;
+    top: 14.5vw;
     transform: translateX(-50%);
     transition: all 250ms;
     z-index: 4;
 }
 
-.rocket--animate-top {
+.rocket--animate-top,
+.rocket--clm,
+.rocket--cm {
     top: 5%;
     transition-duration: 1000ms;
 }
@@ -378,8 +390,17 @@ body {
 }
 
 @media all and (min-width: 600px) {
+    .moon {
+        box-shadow:  0 0 200px 40px rgba(112, 139, 162, 0.5),
+        inset 0 0 60px 20px rgba(112, 139, 162, 0.45);
+    }
+
     .rocket__img-module {
         height: 3vw;
+    }
+
+    .rocket__img-cl-module {
+        height: 10vw;
     }
 
     .rocket__img-default {
@@ -412,6 +433,10 @@ body {
 
     .rocket__img-default {
         height: 10vw;
+    }
+
+    .rocket__img-cl-module {
+        height: 5vw;
     }
 
     .rocket__img-module {

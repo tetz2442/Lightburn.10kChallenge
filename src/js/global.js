@@ -141,7 +141,7 @@
         var rect = section2.getBoundingClientRect(),
             timelineRect = section2CLM.getBoundingClientRect();
         //console.log(rect);
-        if(rect.top - window.innerHeight <= 0) {
+        if(rect.top - (window.innerHeight / 2) <= 0) {
             rocket.classList.add('rocket--animate-top');
             rocket.classList.add('rocket--anim-remove');
         }
@@ -184,7 +184,7 @@
         // are we below section 3?
         else if(section3Rect.top - fromTop <= 0) {
             moon.classList.add('moon--fixed');
-            TweenMax.to(rocketWithCLM, .15, { autoAlpha: 0 });
+            TweenMax.to(rocketWithCLM, .1, { autoAlpha: 0 });
             inPastSection3 = true;
         }
 
