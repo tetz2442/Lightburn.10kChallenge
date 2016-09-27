@@ -30,9 +30,7 @@ module.exports = function(grunt) {
                     compress: {
                         //drop_console: true
                     },
-                    sourceMap: true,
-                    banner: '/* <%= pkg.name %> - v<%= pkg.version %> - ' +
-                    '<%= grunt.template.today("yyyy-mm-dd") %> */'
+                    sourceMap: true
                 },
                 files: {
                     'js/global.min.js': [

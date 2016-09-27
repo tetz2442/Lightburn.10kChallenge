@@ -114,32 +114,31 @@
         this.resizeCallbacks.push(callback);
     };
 
-    var watcher = new Watchers();
-
     /*
      * Logic
      */
-    var firstHit = true,
-        section2 = document.getElementById('js-s-2'),
-        section3 = document.getElementById('js-s-3'),
-        section4 = document.getElementById('js-s-4'),
-        section5 = document.getElementById('js-s-5'),
-        moon = document.getElementById('js-moon'),
-        rocket = document.getElementById('js-rocket'),
-        rocketWithCLM = document.getElementById('js-rocket-clm'),
-        rocketWithCM = document.getElementById('js-rocket-cm'),
-        rocketWithCMR = document.getElementById('js-rocket-cm-r'),
-        earth2 = document.getElementById('js-e-2'),
-        timeline;
-
     function init() {
         timeline = new TimelineMax;
         section3.classList.add('section--expand');
         moon.classList.add('moon--start-top');
 
+        watcher.addScrollCallback(timelineScroll, true);
         watcher.addScrollCallback(section2Scroll, true);
         watcher.addScrollCallback(moonScroll, true);
         watcher.addScrollCallback(landingScroll, true);
+    }
+
+    function timelineScroll(windowTop) {
+        for(var i = 0; i < timelineItemsLength; i++) {
+            if(!timelineItems[i].classList.contains('show')) {
+                var windowHeight = window.innerHeight,
+                    offsetTop = getElementOffsetTop(timelineItems[i]);
+                if(offsetTop < windowTop + windowHeight) {
+                    timelineItems[i].classList.add('show');
+                }
+            }
+
+        }
     }
 
     var belowSection2 = false;
@@ -243,7 +242,6 @@
                         bottom = bodyHeight - offsetTop,
                         earthBottom = bottom - (bodyHeight - earthOffset) + (windowHeight * 0.05);
 
-                    console.log(offsetTop, bodyHeight, earthOffset, bottom, earthBottom);
                     rocketWithCMR.style.bottom = bodyHeight - offsetTop + 'px';
                     rocketWithCMR.classList.add('rocket--splashdown');
                     TweenMax.to(rocketWithCMR, 1, {
@@ -254,7 +252,10 @@
                     TweenMax.to(rocketWithCMR, 1.5, {
                         y: '+=' + earthBottom * 0.5,
                         ease: Power1.easeOut,
-                        delay: 1
+                        delay: 1,
+                        onComplete: function() {
+                            timelineBottom.classList.add('show');
+                        }
                     });
                 }
             }
@@ -270,7 +271,22 @@
     supports.svg = document.implementation && document.implementation.hasFeature && document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure", "1.1");
 
     if (supports.svg && supports.querySelector) {
-        var cloud;
+        var watcher = new Watchers(),
+            firstHit = true,
+            section2 = document.getElementById('js-s-2'),
+            section3 = document.getElementById('js-s-3'),
+            section4 = document.getElementById('js-s-4'),
+            section5 = document.getElementById('js-s-5'),
+            moon = document.getElementById('js-moon'),
+            rocket = document.getElementById('js-rocket'),
+            rocketWithCLM = document.getElementById('js-rocket-clm'),
+            rocketWithCM = document.getElementById('js-rocket-cm'),
+            rocketWithCMR = document.getElementById('js-rocket-cm-r'),
+            earth2 = document.getElementById('js-e-2'),
+            timelineItems = document.querySelectorAll('.tm > li:not(.tm__btm)'),
+            timelineItemsLength = timelineItems.length,
+            timelineBottom = document.getElementById('js-tm-btm'),
+            timeline;
 
         ajax.send({
             url: 'svgs/cl.svg',

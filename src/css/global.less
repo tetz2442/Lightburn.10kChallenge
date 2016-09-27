@@ -44,6 +44,10 @@
     }
 }
 
+main, section {
+    display: block;
+}
+
 html {
     font-size: 62.5%;
 }
@@ -129,13 +133,13 @@ body {
 }
 
 @keyframes cloud {
-     from { transform: rotate(20deg) translate(400%); }
-     to { transform: rotate(160deg) translate(400%); }
+     from { transform: rotate(20deg) translate(350%); }
+     to { transform: rotate(160deg) translate(350%); }
 }
 
 @keyframes cloudBottom {
-    from { transform: rotate(200deg) translate(400%); }
-    to { transform: rotate(350deg) translate(400%); }
+    from { transform: rotate(200deg) translate(350%); }
+    to { transform: rotate(350deg) translate(350%); }
 }
 
 /* http://www.useragentman.com/blog/2013/03/03/animating-circular-paths-using-css3-transitions/# */
@@ -176,7 +180,7 @@ body {
     transform: rotate(90deg);
 }
 
-.section {
+.sec {
     clear: both;
     position: relative;
 
@@ -188,21 +192,21 @@ body {
     }
 }
 
-.section--1 .timeline {
+.sec--1 .tm {
     padding-top: 50vw;
 }
 
-.section--5 .timeline {
+.sec--5 .tm {
     padding-bottom: 50vw;
 }
 
-/*.section--expand {
+/*.sec--expand {
     height: 300vh;
 }*/
 
-.section__title {
+.sec__title {
     color: #cfbcad;
-    font-size: 4.5rem;
+    font-size: 3.5rem;
     left: 0;
     margin: 0;
     padding-left: 6.25%;
@@ -213,7 +217,7 @@ body {
     z-index: 10;
 }
 
-.section--1 .section__title {
+.sec--1 .sec__title {
     top: 4rem;
 }
 
@@ -280,18 +284,18 @@ body {
     width: 22%;
 }
 
-@keyframes moon-command {
+@keyframes moon-cm {
     from { transform: rotate(-90deg) translate(180%); }
     to { transform: rotate(270deg) translate(180%); }
 }
 
-@keyframes moon-command-lg {
+@keyframes moon-cm-lg {
     from { transform: rotate(-90deg) translate(250%); }
     to { transform: rotate(270deg) translate(250%); }
 }
 
-.moon__command-holder {
-    animation: moon-command 30s infinite linear;
+.moon__cm-h {
+    animation: moon-cm 30s infinite linear;
     height: 70%;
     left: 50%;
     margin: -35% 0 0 -35%;
@@ -300,7 +304,7 @@ body {
     width: 70%;
 }
 
-.moon__command {
+.moon__cm {
     height: 100%;
     transform: rotate(180deg);
     width: 100%;
@@ -358,14 +362,16 @@ body {
     height: 4vw;
 }
 
-.timeline {
+.tm {
     list-style: none;
+    margin: 0 auto;
+    max-width: 120rem;
     padding: 4rem 6.25%;
     position: relative;
     z-index: 5;
 }
 
-.timeline > li {
+.tm > li {
     background: fade(#fff, 70%);
     color: #333;
     font-size: 1.8rem;
@@ -374,28 +380,45 @@ body {
     padding: 1rem;
 }
 
-.timeline time {
+.has-js .tm > li {
+    opacity: 0;
+    transition: all 2500ms;
+
+    &.show {
+        opacity: 1;
+    }
+}
+
+.tm time {
     display: block;
     font-weight: 700;
 }
 
-.timeline p {
+.tm p {
     margin: 0;
 }
 
 @media all and (min-width: 600px) {
+    .sec__title {
+        font-size: 4.5rem;
+    }
+
     .moon {
         box-shadow:  0 0 200px 40px rgba(112, 139, 162, 0.5),
         inset 0 0 60px 20px rgba(112, 139, 162, 0.45);
     }
 
-    .timeline:after {
+    .tm {
+        padding-top: 10rem;
+    }
+
+    .tm:after {
         content: '';
         clear: both;
         display: table;
     }
 
-    .timeline > li {
+    .tm > li {
         background: transparent;
         color: #cfbcad;
         clear: both;
@@ -403,12 +426,16 @@ body {
         padding: 0;
         width: 39.5%;
     }
+
+    .sec--3 .tm > li {
+        width: 30%;
+    }
     
-    .timeline > li:nth-child(even) {
+    .tm > li:nth-child(even) {
         float: right;
     }
 
-    .timeline > .timeline__btm {
+    .tm > .tm__btm {
         bottom: 0;
         color: #000;
         left: 50%;
@@ -430,11 +457,11 @@ body {
         transform: translate(-50%, 70%);
     }
 
-    .section--1 .timeline {
+    .sec--1 .tm {
         padding-top: 30vw;
     }
 
-    .section--5 .timeline {
+    .sec--5 .tm {
         padding-bottom: 35vw;
     }
 
@@ -448,8 +475,8 @@ body {
         width: 13%;
     }
 
-    .moon__command-holder {
-        animation-name: moon-command-lg;
+    .moon__cm-h {
+        animation-name: moon-cm-lg;
         height: 36%;
         margin: -18% 0 0 -18%;
         width: 36%;
@@ -472,7 +499,7 @@ body {
         height: 1.5vw;
     }
 
-    .timeline > .timeline__btm {
+    .tm > .tm__btm {
         bottom: 4vw;
         max-width: 700px;
         width: 45vw;

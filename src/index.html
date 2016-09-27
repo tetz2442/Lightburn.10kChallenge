@@ -12,17 +12,17 @@
     <link rel="preconnect" href="//cdnjs.cloudflare.com">
 </head>
 <body>
-    <div class="outer">
+    <main class="outer">
         <div id="stars"></div>
         <div id="line"></div>
-        <div class="section section--1">
+        <section class="sec sec--1">
             <div id="js-e-1" class="earth">
                 <div class="earth__circle"></div>
             </div>
 
-            <h3 class="section__title">Launch</h3>
+            <h3 class="sec__title">Launch</h3>
 
-            <ul class="timeline">
+            <ul class="tm">
                 <li>
                     <time>7/16/1969 9:32:00 AM</time>
                     <p>The Greatest Single Step in Human History - A trip to the Moon. Apollo 11 blasts off from launch Pad.</p>
@@ -31,12 +31,12 @@
                     <p>The launch comes after a 28-hour countdown. It takes place in highly suitable weather, with winds 10 knots from the southeast, temperature in the mid-80's, and clouds at 15,000 feet.</p>
                 </li>
             </ul>
-        </div>
-        <div id="js-s-2" class="section section--2">
+        </section>
+        <section id="js-s-2" class="sec sec--2">
 
-            <h3 class="section__title">Travel</h3>
+            <h3 class="sec__title">Travel</h3>
 
-            <ul class="timeline">
+            <ul class="tm">
                 <li>
                     <time>07/16/69 9:43:39 AM</time>
                     <p>Saturn Stages Fired one after another. Apollo 11 enters a 103 nautical mile - high earth orbit.</p>
@@ -74,19 +74,19 @@
                     <p>The vessel passes completely behind the moon and out of radio contact with earth for the first time.</p>
                 </li>
             </ul>
-        </div>
-        <div id="js-s-3" class="section section--3">
+        </section>
+        <section id="js-s-3" class="sec sec--3">
             <div id="js-moon" class="moon">
                 <img class="moon__flag" src="svgs/fl.svg" alt="American Flag"/>
-                <div class="moon__command-holder">
-                    <img class="moon__command" src="svgs/c-l-m.svg" alt="Command Module"/>
+                <div class="moon__cm-h">
+                    <img class="moon__cm" src="svgs/c-l-m.svg" alt="Command Module"/>
                 </div>
                 <img class="moon__lunar" src="svgs/l-m.svg" alt="Lunar Module"/>
             </div>
 
-            <h3 class="section__title">Moon</h3>
+            <h3 class="sec__title">Moon</h3>
 
-            <ul class="timeline">
+            <ul class="tm">
                 <li>
                     <time>07/19/69 04:17:39 PM</time>
                     <p>Landing - Craft settles down with a jolt, and the words "The Eagle has landed" are immediatley radioed in to Mission control by Armstrong.</p>
@@ -104,11 +104,11 @@
                     <p>United States Flag Deployed - Two other U.S flags are brought and are now flown over the houses of Congress.</p>
                 </li>
             </ul>
-        </div>
-        <div id="js-s-4" class="section section--4">
-            <h3 class="section__title">Travel</h3>
+        </section>
+        <section id="js-s-4" class="sec sec--4">
+            <h3 class="sec__title">Travel</h3>
 
-            <ul class="timeline">
+            <ul class="tm">
                 <li>
                     <time>07/21/69 01:54:00 PM</time>
                     <p>Ascent engine is started and the Lunar module begins rising. Reaching vertical speed of 80 feet per second at 1,000 ft altitude.</p>
@@ -118,15 +118,15 @@
                     <p>The Eagle re-docks with Columbia while circling on the back side of the moon.</p>
                 </li>
             </ul>
-        </div>
-        <div id="js-s-5" class="section section--5">
+        </section>
+        <section id="js-s-5" class="sec sec--5">
             <div id="js-e-2" class="earth earth--btm">
                 <div class="earth__circle"></div>
             </div>
 
-            <h3 class="section__title">Landing</h3>
+            <h3 class="sec__title">Landing</h3>
 
-            <ul class="timeline">
+            <ul class="tm">
                 <li>
                     <time>07/24/69 06:47:00 PM</time>
                     <p>Crew awakens and begins to prepare for splashdown.</p>
@@ -139,11 +139,11 @@
                     <time>07/24/69 12:51:00 PM</time>
                     <p>Splash down 825 nautical miles southwest of Honolulu and about 13 nautical miles from recovery ship - the U.S.S. Hornet.</p>
                 </li>
-                <li class="timeline__btm">
+                <li id="js-tm-btm" class="tm__btm">
                     <p>On June 1969 the Apollo astronauts flew to the moon with a guidance computer using 70k of memory - a testament of what we can do with a little when we put our minds to it.</p>
                 </li>
             </ul>
-        </div>
+        </section>
         <div id="js-rocket" class="rocket rocket--df">
             <img class="rocket__img rocket__img-default" src="svgs/r.svg" alt="Apollo 11 Rocket" />
         </div>
@@ -154,9 +154,9 @@
             <img class="rocket__img rocket__img-cm" src="svgs/c-l-m.svg" alt="Apollo 11 Command Module" />
         </div>
         <div id="js-rocket-cm-r" class="rocket rocket--cm-r">
-            <img class="rocket__img rocket__img-cm-r" src="svgs/c-m.svg" alt="Apollo 11 Command Module Splashdown" />
+            <img class="rocket__img rocket__img-cm-r" src="svgs/c-m.svg" alt="Apollo 11 Command Module" />
         </div>
-    </div>
+    </main>
     <script src="js/global.min.js" async defer></script>
 </body>
 </html>
