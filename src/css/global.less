@@ -53,7 +53,7 @@ body {
     font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
     font-size: 16px;
     font-size: 1.6rem;
-    line-height: 180%;
+    line-height: 190%;
     margin: 0;
 }
 
@@ -125,7 +125,7 @@ body {
 .earth--btm {
     bottom: 0;
     top: auto;
-    transform: translate(-50%, 75%);
+    transform: translate(-50%, 60%);
 }
 
 @keyframes cloud {
@@ -135,7 +135,7 @@ body {
 
 @keyframes cloudBottom {
     from { transform: rotate(200deg) translate(400%); }
-    to { transform: rotate(300deg) translate(400%); }
+    to { transform: rotate(350deg) translate(400%); }
 }
 
 /* http://www.useragentman.com/blog/2013/03/03/animating-circular-paths-using-css3-transitions/# */
@@ -196,9 +196,9 @@ body {
     padding-bottom: 50vw;
 }
 
-.section--expand {
+/*.section--expand {
     height: 300vh;
-}
+}*/
 
 .section__title {
     color: #cfbcad;
@@ -214,7 +214,7 @@ body {
 }
 
 .section--1 .section__title {
-    top: 2rem;
+    top: 4rem;
 }
 
 /* http://codepen.io/saransh/pen/uJCFg */
@@ -327,6 +327,12 @@ body {
     opacity: 1;
 }
 
+.rocket--splashdown {
+    position: absolute;
+    transition: none;
+    top: auto;
+}
+
 .rocket--clm,
 .rocket--cm,
 .rocket--cm-r {
@@ -401,15 +407,35 @@ body {
     .timeline > li:nth-child(even) {
         float: right;
     }
+
+    .timeline > .timeline__btm {
+        bottom: 0;
+        color: #000;
+        left: 50%;
+        position: absolute;
+        margin: 0;
+        text-align: center;
+        transform: translateX(-50%);
+        width: 65vw;
+    }
 }
 
 @media all and (min-width: 992px) {
+    .earth__circle {
+        box-shadow: inset 0 0 60px 20px #85999e,
+                    0 0 200px 75px fade(#fff, 30%);
+    }
+
+    .earth--btm {
+        transform: translate(-50%, 70%);
+    }
+
     .section--1 .timeline {
         padding-top: 30vw;
     }
 
     .section--5 .timeline {
-        padding-bottom: 30vw;
+        padding-bottom: 35vw;
     }
 
     .moon__flag {
@@ -444,5 +470,11 @@ body {
 
     .rocket__img-cm-r {
         height: 1.5vw;
+    }
+
+    .timeline > .timeline__btm {
+        bottom: 4vw;
+        max-width: 700px;
+        width: 45vw;
     }
 }

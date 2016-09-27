@@ -122,28 +122,35 @@
     var firstHit = true,
         section2 = document.getElementById('js-s-2'),
         section3 = document.getElementById('js-s-3'),
+        section4 = document.getElementById('js-s-4'),
+        section5 = document.getElementById('js-s-5'),
         moon = document.getElementById('js-moon'),
         rocket = document.getElementById('js-rocket'),
         rocketWithCLM = document.getElementById('js-rocket-clm'),
         rocketWithCM = document.getElementById('js-rocket-cm'),
-        rocketWithCMR = document.getElementById('js-rocket-cm-r');
+        rocketWithCMR = document.getElementById('js-rocket-cm-r'),
+        earth2 = document.getElementById('js-e-2'),
+        timeline;
 
     function init() {
+        timeline = new TimelineMax;
         section3.classList.add('section--expand');
         moon.classList.add('moon--start-top');
 
         watcher.addScrollCallback(section2Scroll, true);
         watcher.addScrollCallback(moonScroll, true);
+        watcher.addScrollCallback(landingScroll, true);
     }
 
-    var belowCSM = false;
+    var belowSection2 = false;
     function section2Scroll(windowTop) {
         var rect = section2.getBoundingClientRect();
 
+        // are we below section 2?
         if(rect.top - (window.innerHeight / 2) <= 0) {
             TweenMax.to(rocket, .15, { autoAlpha: 0 });
             TweenMax.to(rocketWithCLM, .15, { autoAlpha: 1 });
-            belowCSM = true;
+            belowSection2 = true;
             rocket.classList.add('rocket--anim-remove');
         }
         else {
@@ -152,11 +159,11 @@
                 TweenMax.to(rocketWithCLM, .15, {autoAlpha: 0});
             }
             firstHit = false;
-            belowCSM = false;
+            belowSection2 = false;
         }
     }
 
-    var inPastSection3 = false;
+    var isPastSection3 = false;
     function moonScroll(windowTop) {
         var windowHeight = window.innerHeight,
             moonHeight = moon.clientHeight,
@@ -166,20 +173,26 @@
         // are we above section 3?
         if(section3Rect.top - fromTop > 0) {
             moon.classList.remove('moon--fixed');
-            // make sure we should show this
-            if(belowCSM) {
-                TweenMax.to(rocketWithCLM, .25, {autoAlpha: 1});
-            }
-            inPastSection3 = false;
+            isPastSection3 = false;
         }
         // are we below section 3?
         else if(section3Rect.top - fromTop <= 0) {
             moon.classList.add('moon--fixed');
-            TweenMax.to(rocketWithCLM, .25, { autoAlpha: 0 });
-            inPastSection3 = true;
+            isPastSection3 = true;
         }
 
-        if(inPastSection3) {
+        // should we hide show the command and lunar module?
+        if(section3Rect.top - (windowHeight / 2) > 0) {
+            // make sure we should show this
+            if(belowSection2) {
+                TweenMax.to(rocketWithCLM, .25, {autoAlpha: 1});
+            }
+        }
+        else if(section3Rect.top - (windowHeight / 2) <= 0) {
+            TweenMax.to(rocketWithCLM, .25, { autoAlpha: 0 });
+        }
+
+        if(isPastSection3) {
             var section3Height = section3.clientHeight,
                 section3OffsetTop = getElementOffsetTop(section3),
                 moonOffsetTop = getElementOffsetTop(moon),
@@ -200,8 +213,52 @@
         }
     }
 
+    var playingSplashdown = false;
     function landingScroll(windowTop) {
-        
+        var section4Rect = section4.getBoundingClientRect();
+
+        if(isPastSection3 && section4Rect.top <= 0) {
+            var windowHeight = window.innerHeight,
+                section5Rect = section5.getBoundingClientRect();
+
+            if (section5Rect.top - (windowHeight / 4) > 0) {
+                TweenMax.to(rocketWithCM, .1, {autoAlpha: 1});
+                TweenMax.set(rocketWithCMR, {clearProps: 'transform'});
+                TweenMax.to(rocketWithCMR, 0, {autoAlpha: 0});
+                rocketWithCMR.style.bottom = '';
+                rocketWithCMR.classList.remove('rocket--splashdown');
+                playingSplashdown = false;
+            }
+            else if (section5Rect.top - (windowHeight / 4) <= 0) {
+                TweenMax.to(rocketWithCM, .1, {autoAlpha: 0});
+                TweenMax.to(rocketWithCMR, .1, {autoAlpha: 1});
+
+                var section5Offset = getElementOffsetTop(section5),
+                    section5Height = section5.clientHeight;
+                if(!playingSplashdown && windowTop > section5Offset + (section5Height / 3)) {
+                    playingSplashdown = true;
+                    var offsetTop = getElementOffsetTop(rocketWithCMR),
+                        bodyHeight = document.documentElement.scrollHeight,
+                        earthOffset = getElementOffsetTop(earth2),
+                        bottom = bodyHeight - offsetTop,
+                        earthBottom = bottom - (bodyHeight - earthOffset) + (windowHeight * 0.05);
+
+                    console.log(offsetTop, bodyHeight, earthOffset, bottom, earthBottom);
+                    rocketWithCMR.style.bottom = bodyHeight - offsetTop + 'px';
+                    rocketWithCMR.classList.add('rocket--splashdown');
+                    TweenMax.to(rocketWithCMR, 1, {
+                        rotation: 180,
+                        y: '+=' + earthBottom * 0.5,
+                        ease: Power0.easeNone
+                    });
+                    TweenMax.to(rocketWithCMR, 1.5, {
+                        y: '+=' + earthBottom * 0.5,
+                        ease: Power1.easeOut,
+                        delay: 1
+                    });
+                }
+            }
+        }
     }
 
     /*
