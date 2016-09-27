@@ -3,12 +3,12 @@
 @keyframes earthFadeIn {
     from {
         opacity: 0;
-        transform: translate(-50%, -95%);
+        transform: translate(-50%, -85%);
     }
 
     to {
         opacity: 1;
-        transform: translate(-50%, -90%);
+        transform: translate(-50%, -75%);
     }
 }
 
@@ -83,7 +83,7 @@ body {
 }
 
 #line {
-    border-left: 2px dashed fade(#fff, 10%);
+    border-left: 2px dashed fade(#fff, 20%);
     left: 50%;
     margin-left: -1px;
     position: absolute;
@@ -95,47 +95,25 @@ body {
 
 .earth {
     left: 50%;
-    height: 150vw;
+    height: 80vw;
     position: absolute;
     top: 0;
-    transform: translate(-50%, -90%);
-    width: 150vw;
+    transform: translate(-50%, -75%);
+    width: 80vw;
     z-index: 3;
-
-    &:before {
-        background: radial-gradient(fade(#457895, 40%) 59%, transparent 73%) no-repeat;
-        content: '';
-        border-radius: 50%;
-        left: 50%;
-        height: 140%;
-        position: absolute;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        width: 140%;
-        z-index: 1;
-    }
 }
 
-/*.earth {
-    height: 40vw;
-    transform: none;
-    top: 100%;
-    width: 40vw;
-}*/
-
 .earth:not(.earth--btm) {
-    animation: earthFadeIn 1000ms 700ms ease 1;
+    animation: earthFadeIn 1000ms 400ms ease 1;
     animation-fill-mode: forwards;
     opacity: 0;
 }
 
 .earth__circle {
-    background: #3987c9;
+    background: #73909a;
     border-radius: 50%;
-    box-shadow: inset 0 0 70px 35px rgba(2, 52, 123, 0.5),
-    inset 0 0 10px 5px rgba(2, 52, 123, 0.9),
-    0 0 80px 40px fade(#457895, 50%),
-    0 0 300px 200px fade(#2e3f46, 30%);
+    box-shadow: inset 0 0 40px 10px #85999e,
+                0 0 100px 50px fade(#fff, 30%);
     left: 0;
     height: 100%;
     position: absolute;
@@ -147,32 +125,28 @@ body {
 .earth--btm {
     bottom: 0;
     top: auto;
-    transform: translate(-50%, 90%);
-}
-
-.earth__land {
-
+    transform: translate(-50%, 75%);
 }
 
 @keyframes cloud {
-     from { transform: rotate(40deg) translate(600%); }
-     to { transform: rotate(140deg) translate(600%); }
+     from { transform: rotate(20deg) translate(400%); }
+     to { transform: rotate(160deg) translate(400%); }
 }
 
 @keyframes cloudBottom {
-    from { transform: rotate(220deg) translate(600%); }
-    to { transform: rotate(320deg) translate(600%); }
+    from { transform: rotate(200deg) translate(400%); }
+    to { transform: rotate(300deg) translate(400%); }
 }
 
 /* http://www.useragentman.com/blog/2013/03/03/animating-circular-paths-using-css3-transitions/# */
 .cloud-holder {
     animation: cloud 36s infinite linear;
-    height: 10%;
+    height: 20%;
     left: 50%;
-    margin: -5% 0 0 -5%;
+    margin: -10% 0 0 -10%;
     position: absolute;
     top: 50%;
-    width: 10%;
+    width: 20%;
 }
 
 .earth--btm .cloud-holder {
@@ -203,6 +177,7 @@ body {
 }
 
 .section {
+    clear: both;
     position: relative;
 
     &:before,
@@ -214,11 +189,11 @@ body {
 }
 
 .section--1 .timeline {
-    padding-top: 20vw;
+    padding-top: 50vw;
 }
 
 .section--5 .timeline {
-    padding-bottom: 20vw;
+    padding-bottom: 50vw;
 }
 
 .section--expand {
@@ -226,8 +201,8 @@ body {
 }
 
 .section__title {
-    color: #fff;
-    font-size: 3rem;
+    color: #cfbcad;
+    font-size: 4.5rem;
     left: 0;
     margin: 0;
     padding-left: 6.25%;
@@ -236,6 +211,10 @@ body {
     text-transform: uppercase;
     top: 1rem;
     z-index: 10;
+}
+
+.section--1 .section__title {
+    top: 2rem;
 }
 
 /* http://codepen.io/saransh/pen/uJCFg */
@@ -254,13 +233,11 @@ body {
     box-shadow:  0 0 200px 40px rgba(112, 139, 162, 0.5),
                  inset 0 0 25px 8px rgba(112, 139, 162, 0.45);
     left: 50%;
-    height: 60vw;
-    max-height: 70vw;
-    max-width: 70vw;
+    height: 21.6vw;
     position: absolute;
     transform: translate(-50%, -50%);
     top: 50%;
-    width: 60vw;
+    width: 21.6vw;
     z-index: 3;
 }
 
@@ -288,32 +265,39 @@ body {
     height: auto;
     position: absolute;
     left: 50%;
-    width: 8%;
+    width: 20%;
 }
 
 .moon__flag {
-    margin-bottom: -1px;
-    transform: rotate(3deg) translateX(24%);
+    margin-bottom: -2%;
+    transform: rotate(7deg) translateX(95%);
+    width: 14%;
 }
 
 .moon__lunar {
-    margin-bottom: -3px;
-    transform: translateX(-122%) rotate(173deg);
+    margin-bottom: -4%;
+    transform: translateX(-150%) rotate(168deg);
+    width: 22%;
 }
 
 @keyframes moon-command {
-    from { transform: rotate(-90deg) translate(350%); }
-    to { transform: rotate(270deg) translate(350%); }
+    from { transform: rotate(-90deg) translate(180%); }
+    to { transform: rotate(270deg) translate(180%); }
+}
+
+@keyframes moon-command-lg {
+    from { transform: rotate(-90deg) translate(250%); }
+    to { transform: rotate(270deg) translate(250%); }
 }
 
 .moon__command-holder {
     animation: moon-command 30s infinite linear;
-    height: 20%;
+    height: 70%;
     left: 50%;
-    margin: -10% 0 0 -10%;
+    margin: -35% 0 0 -35%;
     position: absolute;
     top: 50%;
-    width: 20%;
+    width: 70%;
 }
 
 .moon__command {
@@ -323,22 +307,19 @@ body {
 }
 
 .rocket {
-    animation: rocketFadeIn 1000ms 1400ms ease 1;
+    animation: rocketFadeIn 1000ms 600ms ease 1;
     animation-fill-mode: forwards;
     left: 50%;
     position: fixed;
     opacity: 0;
-    top: 14.5vw;
+    top: 5vw;
     transform: translateX(-50%);
-    transition: all 250ms;
+    transition: all 200ms;
     z-index: 4;
 }
 
-.rocket--animate-top,
-.rocket--clm,
-.rocket--cm {
-    top: 5%;
-    transition-duration: 1000ms;
+.rocket--df {
+    top: -25vw;
 }
 
 .rocket--anim-remove {
@@ -347,7 +328,8 @@ body {
 }
 
 .rocket--clm,
-.rocket--cm {
+.rocket--cm,
+.rocket--cm-r {
     animation: none;
     opacity: 0;
 }
@@ -358,15 +340,16 @@ body {
 }
 
 .rocket__img-default {
-    height: 30vw;
+    height: 70vw;
 }
 
-.rocket__img-cl-module {
-    height: 18vw;
+.rocket__img-clm,
+.rocket__img-cm {
+    height: 15vw;
 }
 
-.rocket__img-module {
-    height: 5vw;
+.rocket__img-cm-r {
+    height: 4vw;
 }
 
 .timeline {
@@ -377,15 +360,17 @@ body {
 }
 
 .timeline > li {
-    background: fade(#fff, 80%);
+    background: fade(#fff, 70%);
+    color: #333;
     font-size: 1.8rem;
-    margin-bottom: 10rem;
+    margin-bottom: 14rem;
     margin-top: 5rem;
     padding: 1rem;
 }
 
 .timeline time {
     display: block;
+    font-weight: 700;
 }
 
 .timeline p {
@@ -398,18 +383,6 @@ body {
         inset 0 0 60px 20px rgba(112, 139, 162, 0.45);
     }
 
-    .rocket__img-module {
-        height: 3vw;
-    }
-
-    .rocket__img-cl-module {
-        height: 10vw;
-    }
-
-    .rocket__img-default {
-        height: 20vw;
-    }
-
     .timeline:after {
         content: '';
         clear: both;
@@ -417,9 +390,11 @@ body {
     }
 
     .timeline > li {
-        background: #fff;
+        background: transparent;
+        color: #cfbcad;
         clear: both;
         float: left;
+        padding: 0;
         width: 39.5%;
     }
     
@@ -429,20 +404,45 @@ body {
 }
 
 @media all and (min-width: 992px) {
-    .moon {
-        height: 30vw;
-        width: 30vw;
+    .section--1 .timeline {
+        padding-top: 30vw;
+    }
+
+    .section--5 .timeline {
+        padding-bottom: 30vw;
+    }
+
+    .moon__flag {
+        margin-bottom: -1%;
+        width: 7%;
+    }
+
+    .moon__lunar {
+        margin-bottom: -2.1%;
+        width: 13%;
+    }
+
+    .moon__command-holder {
+        animation-name: moon-command-lg;
+        height: 36%;
+        margin: -18% 0 0 -18%;
+        width: 36%;
+    }
+
+    .rocket--df {
+        top: -18vw;
     }
 
     .rocket__img-default {
-        height: 10vw;
+        height: 46vw;
     }
 
-    .rocket__img-cl-module {
-        height: 5vw;
+    .rocket__img-clm,
+    .rocket__img-cm {
+        height: 8vw;
     }
 
-    .rocket__img-module {
+    .rocket__img-cm-r {
         height: 1.5vw;
     }
 }

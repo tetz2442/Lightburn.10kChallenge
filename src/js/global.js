@@ -121,12 +121,12 @@
      */
     var firstHit = true,
         section2 = document.getElementById('js-s-2'),
-        section2CLM = document.getElementById('js-s-clm'),
         section3 = document.getElementById('js-s-3'),
         moon = document.getElementById('js-moon'),
         rocket = document.getElementById('js-rocket'),
         rocketWithCLM = document.getElementById('js-rocket-clm'),
-        rocketWithCM = document.getElementById('js-rocket-cm');
+        rocketWithCM = document.getElementById('js-rocket-cm'),
+        rocketWithCMR = document.getElementById('js-rocket-cm-r');
 
     function init() {
         section3.classList.add('section--expand');
@@ -138,21 +138,13 @@
 
     var belowCSM = false;
     function section2Scroll(windowTop) {
-        var rect = section2.getBoundingClientRect(),
-            timelineRect = section2CLM.getBoundingClientRect();
-        //console.log(rect);
-        if(rect.top - (window.innerHeight / 2) <= 0) {
-            rocket.classList.add('rocket--animate-top');
-            rocket.classList.add('rocket--anim-remove');
-        }
-        else {
-            rocket.classList.remove('rocket--animate-top');
-        }
+        var rect = section2.getBoundingClientRect();
 
-        if(timelineRect.top - (window.innerHeight / 4) <= 0) {
+        if(rect.top - (window.innerHeight / 2) <= 0) {
             TweenMax.to(rocket, .15, { autoAlpha: 0 });
             TweenMax.to(rocketWithCLM, .15, { autoAlpha: 1 });
             belowCSM = true;
+            rocket.classList.add('rocket--anim-remove');
         }
         else {
             if(!firstHit) {
@@ -169,22 +161,21 @@
         var windowHeight = window.innerHeight,
             moonHeight = moon.clientHeight,
             section3Rect = section3.getBoundingClientRect(),
-            fromTop = (windowHeight - moonHeight) / 2,
-            timelineRect = section2CLM.getBoundingClientRect();
+            fromTop = (windowHeight - moonHeight) / 2;
 
         // are we above section 3?
         if(section3Rect.top - fromTop > 0) {
             moon.classList.remove('moon--fixed');
             // make sure we should show this
             if(belowCSM) {
-                TweenMax.to(rocketWithCLM, .15, {autoAlpha: 1});
+                TweenMax.to(rocketWithCLM, .25, {autoAlpha: 1});
             }
             inPastSection3 = false;
         }
         // are we below section 3?
         else if(section3Rect.top - fromTop <= 0) {
             moon.classList.add('moon--fixed');
-            TweenMax.to(rocketWithCLM, .1, { autoAlpha: 0 });
+            TweenMax.to(rocketWithCLM, .25, { autoAlpha: 0 });
             inPastSection3 = true;
         }
 
@@ -207,6 +198,10 @@
                 TweenMax.to(rocketWithCM, .15, { autoAlpha: 1 });
             }
         }
+    }
+
+    function landingScroll(windowTop) {
+        
     }
 
     /*
