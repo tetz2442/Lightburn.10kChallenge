@@ -282,19 +282,17 @@ body {
 @keyframes rktFadeIn {
     from {
         opacity: 0;
-        transform: translate(-50%, -100%);
     }
 
     to {
         opacity: 1;
-        transform: translate(-50%, 0);
     }
 }
 
 .rkt {
     left: 50%;
     position: fixed;
-    opacity: 1;
+    opacity: 0;
     text-align: center;
     top: 5vw;
     transform: translateX(-50%);
@@ -303,8 +301,8 @@ body {
 }
 
 .rkt--df {
-    /*animation: rktFadeIn 1000ms 600ms ease 1;
-    animation-fill-mode: forwards;*/
+    animation: rktFadeIn 1000ms 600ms ease 1;
+    animation-fill-mode: forwards;
     top: -25vw;
 }
 
