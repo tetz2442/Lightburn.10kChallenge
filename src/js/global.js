@@ -153,15 +153,15 @@
 
         // are we below section 2?
         if(rect.top - (window.innerHeight / 2) <= 0) {
-            TweenMax.to(rocket, .15, { autoAlpha: 0 });
-            TweenMax.to(rocketWithCLM, .15, { autoAlpha: 1 });
+            TweenLite.to(rocket, .15, { autoAlpha: 0 });
+            TweenLite.to(rocketWithCLM, .15, { autoAlpha: 1 });
             belowSection2 = true;
             rocket.classList.add('rkt--anim-remove');
         }
         else {
             if(!firstHit) {
-                TweenMax.to(rocket, .15, {autoAlpha: 1});
-                TweenMax.to(rocketWithCLM, .15, {autoAlpha: 0});
+                TweenLite.to(rocket, .15, {autoAlpha: 1});
+                TweenLite.to(rocketWithCLM, .15, {autoAlpha: 0});
             }
             firstHit = false;
             belowSection2 = false;
@@ -190,11 +190,11 @@
         if(section3Rect.top - (windowHeight / 2) > 0) {
             // make sure we should show this
             if(belowSection2) {
-                TweenMax.to(rocketWithCLM, .25, {autoAlpha: 1});
+                TweenLite.to(rocketWithCLM, .25, {autoAlpha: 1});
             }
         }
         else if(section3Rect.top - (windowHeight / 2) <= 0) {
-            TweenMax.to(rocketWithCLM, .25, { autoAlpha: 0 });
+            TweenLite.to(rocketWithCLM, .25, { autoAlpha: 0 });
         }
 
         if(isPastSection3) {
@@ -207,13 +207,13 @@
             if (windowTop < section3OffsetTop + section3Height + fromTop - windowHeight) {
                 moon.classList.remove('moon--bottom');
 
-                TweenMax.to(rocketWithCM, .1, { autoAlpha: 0 });
+                TweenLite.to(rocketWithCM, .1, { autoAlpha: 0 });
             }
             // are below section 3 bottom?
             else if (moonBottom >= section3OffsetTop + section3Height) {
                 moon.classList.add('moon--bottom');
 
-                TweenMax.to(rocketWithCM, .15, { autoAlpha: 1 });
+                TweenLite.to(rocketWithCM, .15, { autoAlpha: 1 });
             }
         }
     }
@@ -227,16 +227,16 @@
                 section5Rect = section5.getBoundingClientRect();
 
             if (section5Rect.top - (windowHeight / 4) > 0) {
-                TweenMax.to(rocketWithCM, .1, {autoAlpha: 1});
-                TweenMax.set(rocketWithCMR, {clearProps: 'transform'});
-                TweenMax.to(rocketWithCMR, 0, {autoAlpha: 0});
+                TweenLite.to(rocketWithCM, .1, {autoAlpha: 1});
+                TweenLite.set(rocketWithCMR, {clearProps: 'transform'});
+                TweenLite.to(rocketWithCMR, 0, {autoAlpha: 0});
                 rocketWithCMR.style.bottom = '';
                 rocketWithCMR.classList.remove('rkt--splashdown');
                 playingSplashdown = false;
             }
             else if (section5Rect.top - (windowHeight / 4) <= 0) {
-                TweenMax.to(rocketWithCM, .1, {autoAlpha: 0});
-                TweenMax.to(rocketWithCMR, .1, {autoAlpha: 1});
+                TweenLite.to(rocketWithCM, .1, {autoAlpha: 0});
+                TweenLite.to(rocketWithCMR, .1, {autoAlpha: 1});
 
                 var section5Offset = getElementOffsetTop(section5),
                     section5Height = section5.clientHeight;
@@ -250,12 +250,12 @@
 
                     rocketWithCMR.style.bottom = bodyHeight - offsetTop + 'px';
                     rocketWithCMR.classList.add('rkt--splashdown');
-                    TweenMax.to(rocketWithCMR, 1, {
+                    TweenLite.to(rocketWithCMR, 1, {
                         rotation: 180,
                         y: '+=' + earthBottom * 0.5,
                         ease: Power0.easeNone
                     });
-                    TweenMax.to(rocketWithCMR, 1.5, {
+                    TweenLite.to(rocketWithCMR, 1.5, {
                         y: '+=' + earthBottom * 0.5,
                         ease: Power1.easeOut,
                         delay: 1,
@@ -308,7 +308,7 @@
             }
         });
 
-        loadScript('https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js', function() {
+        loadScript('j/TweenLite.js', function() {
             init();
         });
     }
