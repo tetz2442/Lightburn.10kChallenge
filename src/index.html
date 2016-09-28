@@ -7,12 +7,12 @@
     <meta name="MobileOptimized" content="width">
     <meta name="HandheldFriendly" content="true">
     <title>Apollo 11 Mission to the Moon</title>
-    <link href="css/global.min.css" rel="stylesheet"/>
+    <link href="c/global.min.css" rel="stylesheet"/>
     <script>document.getElementsByTagName('html')[0].className = 'has-js';</script>
     <link rel="preconnect" href="//cdnjs.cloudflare.com">
 </head>
 <body>
-    <main class="outer">
+    <main id="js-mn" class="outer">
         <div id="stars"></div>
         <div id="line"></div>
         <section class="sec sec--1">
@@ -51,7 +51,7 @@
                 </li>
                 <li>
                     <time>07/16/69 12:49:04 PM</time>
-                    <p>The Lunar land craft (Code name Eagle) is unpacked from its compartment atop the launch rockets. Explosive bolts are used to separate the adapter and blow apart four panels that make up its side, exposing The Eagle.</p>
+                    <p>The Lunar land craft (Code name Eagle) is unpacked from its compartment atop the launch rkts. Explosive bolts are used to separate the adapter and blow apart four panels that make up its side, exposing The Eagle.</p>
                 </li>
                 <li>
                     <time>07/16/69 08:48:00 PM</time>
@@ -77,11 +77,11 @@
         </section>
         <section id="js-s-3" class="sec sec--3">
             <div id="js-moon" class="moon">
-                <img class="moon__flag" src="svgs/fl.svg" alt="American Flag"/>
+                <img class="moon__flag" src="s/fl.svg" alt="American Flag"/>
                 <div class="moon__cm-h">
-                    <img class="moon__cm" src="svgs/c-l-m.svg" alt="Command Module"/>
+                    <img class="moon__cm" src="s/c-l-m.svg" alt="Command Module"/>
                 </div>
-                <img class="moon__lunar" src="svgs/l-m.svg" alt="Lunar Module"/>
+                <img class="moon__lunar" src="s/l-m.svg" alt="Lunar Module"/>
             </div>
 
             <h3 class="sec__title">Moon</h3>
@@ -144,19 +144,16 @@
                 </li>
             </ul>
         </section>
-        <div id="js-rocket" class="rocket rocket--df">
-            <img class="rocket__img rocket__img-default" src="svgs/r.svg" alt="Apollo 11 Rocket" />
+        <div id="js-rkt" class="rkt rkt--df">
+            <img class="rkt__img rkt__img-default" src="s/r.svg" alt="Apollo 11 rkt" />
         </div>
-        <div id="js-rocket-clm" class="rocket rocket--clm">
-            <img class="rocket__img rocket__img-clm" src="svgs/c-a-l-m.svg" alt="Apollo 11 Command and Lunar Module" />
-        </div>
-        <div id="js-rocket-cm" class="rocket rocket--cm">
-            <img class="rocket__img rocket__img-cm" src="svgs/c-l-m.svg" alt="Apollo 11 Command Module" />
-        </div>
-        <div id="js-rocket-cm-r" class="rocket rocket--cm-r">
-            <img class="rocket__img rocket__img-cm-r" src="svgs/c-m.svg" alt="Apollo 11 Command Module" />
+        <div id="js-rkt-cm" class="rkt rkt--cm">
+            <img class="rkt__img rkt__img-cm" src="s/c-l-m.svg" alt="Apollo 11 Command Module" />
         </div>
     </main>
-    <script src="js/global.min.js" async defer></script>
+
+    <script id="js-rkts" type="text/template"><div id="js-rkt-clm" class="rkt rkt--clm"><img class="rkt__img rkt__img-clm" src="s/c-a-l-m.svg" alt="Apollo 11 Command and Lunar Module" /></div><div id="js-rkt-cm-r" class="rkt rkt--cm-r"><img class="rkt__img rkt__img-cm-r" src="s/c-m.svg" alt="Apollo 11 Command Module" /></div></script>
+
+    <script src="j/global.min.js" async defer></script>
 </body>
 </html>

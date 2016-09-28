@@ -12,7 +12,7 @@
     }
 }
 
-@keyframes rocketFadeIn {
+@keyframes rktFadeIn {
     from {
         opacity: 0;
         transform: translate(-50%, -100%);
@@ -133,8 +133,8 @@ body {
 }
 
 @keyframes cloud {
-     from { transform: rotate(20deg) translate(350%); }
-     to { transform: rotate(160deg) translate(350%); }
+     from { transform: rotate(10deg) translate(350%); }
+     to { transform: rotate(170deg) translate(350%); }
 }
 
 @keyframes cloudBottom {
@@ -310,8 +310,8 @@ body {
     width: 100%;
 }
 
-.rocket {
-    animation: rocketFadeIn 1000ms 600ms ease 1;
+.rkt {
+    animation: rktFadeIn 1000ms 600ms ease 1;
     animation-fill-mode: forwards;
     left: 50%;
     position: fixed;
@@ -322,43 +322,51 @@ body {
     z-index: 4;
 }
 
-.rocket--df {
+.rkt--df {
     top: -25vw;
 }
 
-.rocket--anim-remove {
+.no-js .rkt--df {
+    top: -1vw;
+}
+
+.rkt--anim-remove {
     animation: none;
     opacity: 1;
 }
 
-.rocket--splashdown {
+.rkt--splashdown {
     position: absolute;
     transition: none;
     top: auto;
 }
 
-.rocket--clm,
-.rocket--cm,
-.rocket--cm-r {
+.rkt--clm,
+.rkt--cm,
+.rkt--cm-r {
     animation: none;
     opacity: 0;
 }
 
-.rocket__img {
+.rkt__img {
     transform: rotate(180deg);
     width: auto;
 }
 
-.rocket__img-default {
+.rkt__img-default {
     height: 70vw;
 }
 
-.rocket__img-clm,
-.rocket__img-cm {
+.no-js .rkt__img-default {
+    max-height: 50vh;
+}
+
+.rkt__img-clm,
+.rkt__img-cm {
     height: 15vw;
 }
 
-.rocket__img-cm-r {
+.rkt__img-cm-r {
     height: 4vw;
 }
 
@@ -382,7 +390,7 @@ body {
 
 .has-js .tm > li {
     opacity: 0;
-    transition: all 2500ms;
+    transition: all 2000ms;
 
     &.show {
         opacity: 1;
@@ -482,20 +490,20 @@ body {
         width: 36%;
     }
 
-    .rocket--df {
+    .rkt--df {
         top: -18vw;
     }
 
-    .rocket__img-default {
+    .rkt__img-default {
         height: 46vw;
     }
 
-    .rocket__img-clm,
-    .rocket__img-cm {
+    .rkt__img-clm,
+    .rkt__img-cm {
         height: 8vw;
     }
 
-    .rocket__img-cm-r {
+    .rkt__img-cm-r {
         height: 1.5vw;
     }
 

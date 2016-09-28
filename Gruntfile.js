@@ -13,7 +13,7 @@ module.exports = function(grunt) {
                     ]
                 },
                 files: {
-                    'css/global.min.css': 'src/css/global.less'
+                    'c/global.min.css': 'src/css/global.less'
                 }
             }
         },
@@ -33,7 +33,7 @@ module.exports = function(grunt) {
                     sourceMap: true
                 },
                 files: {
-                    'js/global.min.js': [
+                    'j/global.min.js': [
                         'src/js/global.js'
                     ]
                 }
@@ -61,13 +61,13 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'svgs/cl.svg': 'src/svgs/cloud.svg',
-                    'svgs/r.svg': 'src/svgs/rocket.svg',
-                    'svgs/c-m.svg': 'src/svgs/command-module.svg',
-                    'svgs/c-a-l-m.svg': 'src/svgs/command-and-lunar-module.svg',
-                    'svgs/l-m.svg': 'src/svgs/lunar-module.svg',
-                    'svgs/c-l-m.svg': 'src/svgs/command-large-module.svg',
-                    'svgs/fl.svg': 'src/svgs/flag.svg'
+                    's/cl.svg': 'src/svgs/cloud.svg',
+                    's/r.svg': 'src/svgs/rocket.svg',
+                    's/c-m.svg': 'src/svgs/command-module.svg',
+                    's/c-a-l-m.svg': 'src/svgs/command-and-lunar-module.svg',
+                    's/l-m.svg': 'src/svgs/lunar-module.svg',
+                    's/c-l-m.svg': 'src/svgs/command-large-module.svg',
+                    's/fl.svg': 'src/svgs/flag.svg'
                 }
             }
         },

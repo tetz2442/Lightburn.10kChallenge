@@ -118,10 +118,16 @@
      * Logic
      */
     function init() {
-        timeline = new TimelineMax;
+        // load rockets in with js
+        document.getElementById('js-mn').insertAdjacentHTML('beforeend', document.getElementById('js-rkts').innerHTML);
+        // get references to objects after putting them in the html
+        rocketWithCLM = document.getElementById('js-rkt-clm');
+        rocketWithCMR = document.getElementById('js-rkt-cm-r');
+
         section3.classList.add('section--expand');
         moon.classList.add('moon--start-top');
 
+        // start scroll watchers
         watcher.addScrollCallback(timelineScroll, true);
         watcher.addScrollCallback(section2Scroll, true);
         watcher.addScrollCallback(moonScroll, true);
@@ -150,7 +156,7 @@
             TweenMax.to(rocket, .15, { autoAlpha: 0 });
             TweenMax.to(rocketWithCLM, .15, { autoAlpha: 1 });
             belowSection2 = true;
-            rocket.classList.add('rocket--anim-remove');
+            rocket.classList.add('rkt--anim-remove');
         }
         else {
             if(!firstHit) {
@@ -225,7 +231,7 @@
                 TweenMax.set(rocketWithCMR, {clearProps: 'transform'});
                 TweenMax.to(rocketWithCMR, 0, {autoAlpha: 0});
                 rocketWithCMR.style.bottom = '';
-                rocketWithCMR.classList.remove('rocket--splashdown');
+                rocketWithCMR.classList.remove('rkt--splashdown');
                 playingSplashdown = false;
             }
             else if (section5Rect.top - (windowHeight / 4) <= 0) {
@@ -243,7 +249,7 @@
                         earthBottom = bottom - (bodyHeight - earthOffset) + (windowHeight * 0.05);
 
                     rocketWithCMR.style.bottom = bodyHeight - offsetTop + 'px';
-                    rocketWithCMR.classList.add('rocket--splashdown');
+                    rocketWithCMR.classList.add('rkt--splashdown');
                     TweenMax.to(rocketWithCMR, 1, {
                         rotation: 180,
                         y: '+=' + earthBottom * 0.5,
@@ -278,18 +284,17 @@
             section4 = document.getElementById('js-s-4'),
             section5 = document.getElementById('js-s-5'),
             moon = document.getElementById('js-moon'),
-            rocket = document.getElementById('js-rocket'),
-            rocketWithCLM = document.getElementById('js-rocket-clm'),
-            rocketWithCM = document.getElementById('js-rocket-cm'),
-            rocketWithCMR = document.getElementById('js-rocket-cm-r'),
+            rocket = document.getElementById('js-rkt'),
+            rocketWithCM = document.getElementById('js-rkt-cm'),
             earth2 = document.getElementById('js-e-2'),
             timelineItems = document.querySelectorAll('.tm > li:not(.tm__btm)'),
             timelineItemsLength = timelineItems.length,
             timelineBottom = document.getElementById('js-tm-btm'),
-            timeline;
+            rocketWithCLM,
+            rocketWithCMR;
 
         ajax.send({
-            url: 'svgs/cl.svg',
+            url: 's/cl.svg',
             type: 'get',
             success: function(data) {
                 var earths = document.querySelectorAll('.earth__circle');
