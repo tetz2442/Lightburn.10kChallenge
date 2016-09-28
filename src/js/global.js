@@ -97,18 +97,21 @@
         moon.classList.add('moon--start-top');
 
         addListeners();
+        scrollEvent();
     }
 
     function addListeners() {
-        window.addEventListener('scroll', function() {
-            var top = getWindowTop(),
-                windowHeight = window.innerHeight;
+        window.addEventListener('scroll', scrollEvent);
+    }
 
-            timelineScroll(top, windowHeight);
-            section2Scroll(top, windowHeight);
-            moonScroll(top, windowHeight);
-            landingScroll(top, windowHeight);
-        });
+    function scrollEvent() {
+        var top = getWindowTop(),
+            windowHeight = window.innerHeight;
+
+        timelineScroll(top, windowHeight);
+        section2Scroll(top, windowHeight);
+        moonScroll(top, windowHeight);
+        landingScroll(top, windowHeight);
     }
 
     function timelineScroll(windowTop, windowHeight) {
@@ -124,25 +127,31 @@
     }
 
     var belowSection2 = false,
-        rocketShown = true;
+        isRocketShown = true,
+        isRocketCLMShown = false,
+        isRocketCMShown = false;
     function section2Scroll(windowTop, windowHeight) {
         var rect = section2.getBoundingClientRect();
 
         // are we below section 2?
         if(rect.top - (windowHeight / 2) <= 0) {
-            if(rocketShown) {
+            if(isRocketShown) {
                 TweenLite.to(rocket, .15, {autoAlpha: 0});
                 TweenLite.to(rocketWithCLM, .15, {autoAlpha: 1});
-                rocketShown = false;
+                isRocketShown = false;
+                isRocketCLMShown = true;
+                console.log('hide rocket');
             }
             belowSection2 = true;
             rocket.classList.add('rkt--anim-remove');
         }
         else {
-            if(!firstHit && !rocketShown) {
+            if(!isRocketShown) {
                 TweenLite.to(rocket, .15, {autoAlpha: 1});
                 TweenLite.to(rocketWithCLM, .15, {autoAlpha: 0});
-                rocketShown = true;
+                isRocketShown = true;
+                isRocketCLMShown = false;
+                console.log('show rocket');
             }
             firstHit = false;
             belowSection2 = false;
@@ -166,13 +175,16 @@
             isPastSection3 = true;
         }
 
-        // should we hide show the command and lunar module?
-        // make sure we should show this
-        if(belowSection2 && section3Rect.top - (windowHeight / 2) > 0) {
+        // should we hide/show the command and lunar module?
+        if(!isRocketCLMShown && belowSection2 && section3Rect.top - (windowHeight / 2) > 0) {
             TweenLite.to(rocketWithCLM, .25, {autoAlpha: 1});
+            isRocketCLMShown = true;
+            console.log('show clm');
         }
-        else if(section3Rect.top - (windowHeight / 2) <= 0) {
+        else if(isRocketCLMShown && section3Rect.top - (windowHeight / 2) <= 0) {
             TweenLite.to(rocketWithCLM, .25, { autoAlpha: 0 });
+            isRocketCLMShown = false;
+            console.log('hide clm');
         }
 
         if(isPastSection3) {
@@ -185,35 +197,50 @@
             if (windowTop < section3OffsetTop + section3Height + fromTop - windowHeight) {
                 moon.classList.remove('moon--bottom');
 
-                TweenLite.to(rocketWithCM, .1, { autoAlpha: 0 });
+                if(isRocketCMShown) {
+                    TweenLite.to(rocketWithCM, .1, {autoAlpha: 0});
+                    isRocketCMShown = false;
+                    console.log('cm hide');
+                }
             }
             // are below section 3 bottom?
             else if (moonBottom >= section3OffsetTop + section3Height) {
                 moon.classList.add('moon--bottom');
 
-                TweenLite.to(rocketWithCM, .15, { autoAlpha: 1 });
+                if(!isRocketCMShown) {
+                    TweenLite.to(rocketWithCM, .15, {autoAlpha: 1});
+                    isRocketCMShown = true;
+                    console.log('cm show');
+                }
             }
         }
     }
 
-    var playingSplashdown = false;
+    var playingSplashdown = false,
+        isRocketCMRShown = false;
     function landingScroll(windowTop, windowHeight) {
         var section4Rect = section4.getBoundingClientRect();
 
         if(isPastSection3 && section4Rect.top <= 0) {
             var section5Rect = section5.getBoundingClientRect();
 
-            if (section5Rect.top - (windowHeight / 4) > 0) {
+            if (isRocketCMRShown && section5Rect.top - (windowHeight / 4) > 0) {
                 TweenLite.to(rocketWithCM, .1, {autoAlpha: 1});
                 TweenLite.set(rocketWithCMR, {clearProps: 'transform'});
                 TweenLite.to(rocketWithCMR, 0, {autoAlpha: 0});
                 rocketWithCMR.style.bottom = '';
                 rocketWithCMR.classList.remove('rkt--splashdown');
                 playingSplashdown = false;
+                isRocketCMRShown = false;
+                console.log('hide cmr');
             }
             else if (section5Rect.top - (windowHeight / 4) <= 0 || windowTop >= windowTop + windowHeight) {
-                TweenLite.to(rocketWithCM, .1, {autoAlpha: 0});
-                TweenLite.to(rocketWithCMR, .1, {autoAlpha: 1});
+                if(!isRocketCMRShown) {
+                    TweenLite.to(rocketWithCM, .1, {autoAlpha: 0});
+                    TweenLite.to(rocketWithCMR, .1, {autoAlpha: 1});
+                    isRocketCMRShown = true;
+                    console.log('show cmr');
+                }
 
                 var section5Offset = getElementOffsetTop(section5),
                     section5Height = section5.clientHeight;
@@ -266,6 +293,7 @@
             timelineItems = document.querySelectorAll('.tm > li:not(.tm__btm)'),
             timelineItemsLength = timelineItems.length,
             timelineBottom = document.getElementById('js-tm-btm'),
+            earths = document.querySelectorAll('.earth__circle'),
             rocketWithCLM,
             rocketWithCMR;
 
@@ -273,11 +301,18 @@
             url: 's/cl.svg',
             type: 'get',
             success: function(data) {
-                var earths = document.querySelectorAll('.earth__circle');
-
                 for(var i = 0; i < earths.length; i++) {
                     earths[i].appendChild(createCloud(data));
                     earths[i].appendChild(createCloud(data));
+                }
+            }
+        });
+
+        ajax.send({
+            url: 's/cl2.svg',
+            type: 'get',
+            success: function(data) {
+                for(var i = 0; i < earths.length; i++) {
                     earths[i].appendChild(createCloud(data));
                     earths[i].appendChild(createCloud(data));
                 }

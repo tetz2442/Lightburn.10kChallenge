@@ -12,6 +12,12 @@
     }
 }
 
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
 main, section {
     display: block;
 }
@@ -101,13 +107,13 @@ body {
 }
 
 @keyframes cloud {
-     from { transform: rotate(10deg) translate(350%); }
-     to { transform: rotate(170deg) translate(350%); }
+     from { transform: rotate(10deg) translate(330%); }
+     to { transform: rotate(170deg) translate(330%); }
 }
 
 @keyframes cloudBottom {
-    from { transform: rotate(190deg) translate(350%); }
-    to { transform: rotate(350deg) translate(350%); }
+    from { transform: rotate(190deg) translate(330%); }
+    to { transform: rotate(350deg) translate(330%); }
 }
 
 /* http://www.useragentman.com/blog/2013/03/03/animating-circular-paths-using-css3-transitions/# */
@@ -143,10 +149,12 @@ body {
 
 .cloud {
     fill: #fff;
+    height: 100%;
     stroke: fade(#000, 40%);
     stroke-width: 1px;
     opacity: 0.4;
     transform: rotate(90deg);
+    width: 100%;
 }
 
 .sec {
@@ -173,17 +181,30 @@ body {
     height: 300vh;
 }*/
 
-.sec__title {
+.sec__title,
+.sec__title-border {
     color: #cfbcad;
     font-size: 3.5rem;
-    left: 0;
+    left: 50%;
     margin: 0;
+    max-width: 180rem;
     padding-left: 6.25%;
     position: absolute;
     opacity: 0.6;
     text-transform: uppercase;
+    transform: translateX(-50%);
     top: 1rem;
+    width: 100%;
     z-index: 10;
+}
+
+.sec__title-border {
+    border-bottom: 2px solid fade(#807670, 30%);
+    left: 0;
+    max-width: none;
+    transform: none;
+    top: 4.4rem;
+    z-index: 2;
 }
 
 .sec--1 .sec__title {
@@ -351,7 +372,7 @@ body {
 .tm {
     list-style: none;
     margin: 0 auto;
-    max-width: 120rem;
+    max-width: 180rem;
     padding: 4rem 6.25%;
     position: relative;
     z-index: 5;
@@ -372,6 +393,10 @@ body {
     &.show {
         opacity: 1;
     }
+}
+
+.tm > .tm__btm {
+    margin-bottom: 8rem;
 }
 
 .tm time {

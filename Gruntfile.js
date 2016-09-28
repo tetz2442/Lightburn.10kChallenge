@@ -28,7 +28,7 @@ module.exports = function(grunt) {
                 options: {
                     // remove console.* calls
                     compress: {
-                        //drop_console: true
+                        drop_console: true
                     },
                     sourceMap: true
                 },
@@ -62,6 +62,7 @@ module.exports = function(grunt) {
             dist: {
                 files: {
                     's/cl.svg': 'src/svgs/cloud.svg',
+                    's/cl2.svg': 'src/svgs/cloud2.svg',
                     's/r.svg': 'src/svgs/rocket.svg',
                     's/c-m.svg': 'src/svgs/command-module.svg',
                     's/c-a-l-m.svg': 'src/svgs/command-and-lunar-module.svg',
