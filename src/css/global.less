@@ -12,38 +12,6 @@
     }
 }
 
-@keyframes rktFadeIn {
-    from {
-        opacity: 0;
-        transform: translate(-50%, -100%);
-    }
-
-    to {
-        opacity: 1;
-        transform: translate(-50%, 0);
-    }
-}
-
-@keyframes fadeOut {
-    from {
-        opacity: 1;
-    }
-
-    to {
-        opacity: 0;
-    }
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
 main, section {
     display: block;
 }
@@ -86,7 +54,7 @@ body {
 }
 
 #line {
-    background-image: linear-gradient(top, fade(#cfbcad, 50%), fade(#cfbcad, 50%) 50%, transparent 50%);
+    background-image: linear-gradient(fade(#cfbcad, 50%), fade(#cfbcad, 50%) 50%, transparent 50%);
     background-size: 1px 24px;
     left: 50%;
     margin-left: 0.5px;
@@ -311,12 +279,23 @@ body {
     width: 100%;
 }
 
+@keyframes rktFadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -100%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
 .rkt {
-    animation: rktFadeIn 1000ms 600ms ease 1;
-    animation-fill-mode: forwards;
     left: 50%;
     position: fixed;
     opacity: 0;
+    text-align: center;
     top: 5vw;
     transform: translateX(-50%);
     transition: all 200ms;
@@ -324,6 +303,8 @@ body {
 }
 
 .rkt--df {
+    animation: rktFadeIn 1000ms 600ms ease 1;
+    animation-fill-mode: forwards;
     top: -25vw;
 }
 
@@ -345,7 +326,6 @@ body {
 .rkt--clm,
 .rkt--cm,
 .rkt--cm-r {
-    animation: none;
     opacity: 0;
 }
 
