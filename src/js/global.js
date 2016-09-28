@@ -88,7 +88,7 @@
      */
     function init() {
         // load rockets in with js
-        document.getElementById('js-mn').insertAdjacentHTML('beforeend', document.getElementById('js-rkts').innerHTML);
+        document.getElementsByTagName('main')[0].insertAdjacentHTML('beforeend', document.getElementById('js-rkts').innerHTML);
         // get references to objects after putting them in the html
         rocketWithCLM = document.getElementById('js-rkt-clm');
         rocketWithCMR = document.getElementById('js-rkt-cm-r');
@@ -282,14 +282,14 @@
 
     if (supports.svg && supports.querySelector) {
         var firstHit = true,
-            section2 = document.getElementById('js-s-2'),
-            section3 = document.getElementById('js-s-3'),
-            section4 = document.getElementById('js-s-4'),
-            section5 = document.getElementById('js-s-5'),
-            moon = document.getElementById('js-moon'),
+            section2 = document.querySelector('.sec--2'),
+            section3 = document.querySelector('.sec--3'),
+            section4 = document.querySelector('.sec--4'),
+            section5 = document.querySelector('.sec--5'),
+            moon = document.querySelector('.moon'),
             rocket = document.getElementById('js-rkt'),
             rocketWithCM = document.getElementById('js-rkt-cm'),
-            earth2 = document.getElementById('js-e-2'),
+            earth2 = document.querySelector('.earth--btm'),
             timelineItems = document.querySelectorAll('.tm > li:not(.tm__btm)'),
             timelineItemsLength = timelineItems.length,
             timelineBottom = document.getElementById('js-tm-btm'),
