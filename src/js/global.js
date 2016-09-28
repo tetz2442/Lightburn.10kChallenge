@@ -64,7 +64,7 @@
      */
     function createCloud(svg) {
         var div = document.createElement('div');
-        div.className = 'cloud-holder';
+        div.className = 'cld-h';
         div.innerHTML = svg;
         return div;
     }
