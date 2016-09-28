@@ -83,37 +83,6 @@
         return offset;
     }
 
-    /* Scroll watcher */
-    function Watchers() {
-        var self = this;
-
-        window.addEventListener('scroll', function() {
-            var top = getWindowTop();
-            for (var i = 0; i < self.scrollCallbacks.length; i++) {
-                self.scrollCallbacks[i](top);
-            }
-        });
-        window.addEventListener('resize', function() {
-            for (var i = 0; i < self.resizeCallbacks.length; i++) {
-                self.resizeCallbacks[i]();
-            }
-        });
-
-        return this;
-    }
-
-    Watchers.prototype.scrollCallbacks = [];
-    Watchers.prototype.resizeCallbacks = [];
-
-    Watchers.prototype.addScrollCallback = function(callback, callImmediately) {
-        this.scrollCallbacks.push(callback);
-        if(callImmediately) callback(getWindowTop());
-    };
-
-    Watchers.prototype.addResizeCallback = function(callback) {
-        this.resizeCallbacks.push(callback);
-    };
-
     /*
      * Logic
      */
@@ -127,18 +96,25 @@
         section3.classList.add('section--expand');
         moon.classList.add('moon--start-top');
 
-        // start scroll watchers
-        watcher.addScrollCallback(timelineScroll, true);
-        watcher.addScrollCallback(section2Scroll, true);
-        watcher.addScrollCallback(moonScroll, true);
-        watcher.addScrollCallback(landingScroll, true);
+        addListeners();
     }
 
-    function timelineScroll(windowTop) {
+    function addListeners() {
+        window.addEventListener('scroll', function() {
+            var top = getWindowTop(),
+                windowHeight = window.innerHeight;
+
+            timelineScroll(top, windowHeight);
+            section2Scroll(top, windowHeight);
+            moonScroll(top, windowHeight);
+            landingScroll(top, windowHeight);
+        });
+    }
+
+    function timelineScroll(windowTop, windowHeight) {
         for(var i = 0; i < timelineItemsLength; i++) {
             if(!timelineItems[i].classList.contains('show')) {
-                var windowHeight = window.innerHeight,
-                    offsetTop = getElementOffsetTop(timelineItems[i]);
+                var offsetTop = getElementOffsetTop(timelineItems[i]);
                 if(offsetTop < windowTop + windowHeight) {
                     timelineItems[i].classList.add('show');
                 }
@@ -147,21 +123,26 @@
         }
     }
 
-    var belowSection2 = false;
-    function section2Scroll(windowTop) {
+    var belowSection2 = false,
+        rocketShown = true;
+    function section2Scroll(windowTop, windowHeight) {
         var rect = section2.getBoundingClientRect();
 
         // are we below section 2?
-        if(rect.top - (window.innerHeight / 2) <= 0) {
-            TweenLite.to(rocket, .15, { autoAlpha: 0 });
-            TweenLite.to(rocketWithCLM, .15, { autoAlpha: 1 });
+        if(rect.top - (windowHeight / 2) <= 0) {
+            if(rocketShown) {
+                TweenLite.to(rocket, .15, {autoAlpha: 0});
+                TweenLite.to(rocketWithCLM, .15, {autoAlpha: 1});
+                rocketShown = false;
+            }
             belowSection2 = true;
             rocket.classList.add('rkt--anim-remove');
         }
         else {
-            if(!firstHit) {
+            if(!firstHit && !rocketShown) {
                 TweenLite.to(rocket, .15, {autoAlpha: 1});
                 TweenLite.to(rocketWithCLM, .15, {autoAlpha: 0});
+                rocketShown = true;
             }
             firstHit = false;
             belowSection2 = false;
@@ -169,9 +150,8 @@
     }
 
     var isPastSection3 = false;
-    function moonScroll(windowTop) {
-        var windowHeight = window.innerHeight,
-            moonHeight = moon.clientHeight,
+    function moonScroll(windowTop, windowHeight) {
+        var moonHeight = moon.clientHeight,
             section3Rect = section3.getBoundingClientRect(),
             fromTop = (windowHeight - moonHeight) / 2;
 
@@ -187,11 +167,9 @@
         }
 
         // should we hide show the command and lunar module?
-        if(section3Rect.top - (windowHeight / 2) > 0) {
-            // make sure we should show this
-            if(belowSection2) {
-                TweenLite.to(rocketWithCLM, .25, {autoAlpha: 1});
-            }
+        // make sure we should show this
+        if(belowSection2 && section3Rect.top - (windowHeight / 2) > 0) {
+            TweenLite.to(rocketWithCLM, .25, {autoAlpha: 1});
         }
         else if(section3Rect.top - (windowHeight / 2) <= 0) {
             TweenLite.to(rocketWithCLM, .25, { autoAlpha: 0 });
@@ -219,12 +197,11 @@
     }
 
     var playingSplashdown = false;
-    function landingScroll(windowTop) {
+    function landingScroll(windowTop, windowHeight) {
         var section4Rect = section4.getBoundingClientRect();
 
         if(isPastSection3 && section4Rect.top <= 0) {
-            var windowHeight = window.innerHeight,
-                section5Rect = section5.getBoundingClientRect();
+            var section5Rect = section5.getBoundingClientRect();
 
             if (section5Rect.top - (windowHeight / 4) > 0) {
                 TweenLite.to(rocketWithCM, .1, {autoAlpha: 1});
@@ -234,7 +211,7 @@
                 rocketWithCMR.classList.remove('rkt--splashdown');
                 playingSplashdown = false;
             }
-            else if (section5Rect.top - (windowHeight / 4) <= 0) {
+            else if (section5Rect.top - (windowHeight / 4) <= 0 || windowTop >= windowTop + windowHeight) {
                 TweenLite.to(rocketWithCM, .1, {autoAlpha: 0});
                 TweenLite.to(rocketWithCMR, .1, {autoAlpha: 1});
 
@@ -277,8 +254,7 @@
     supports.svg = document.implementation && document.implementation.hasFeature && document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure", "1.1");
 
     if (supports.svg && supports.querySelector) {
-        var watcher = new Watchers(),
-            firstHit = true,
+        var firstHit = true,
             section2 = document.getElementById('js-s-2'),
             section3 = document.getElementById('js-s-3'),
             section4 = document.getElementById('js-s-4'),
