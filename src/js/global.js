@@ -86,6 +86,14 @@
     /*
      * Logic
      */
+    var belowSection2 = false,
+        isRocketShown = true,
+        isRocketCLMShown = false,
+        isRocketCMShown = false,
+        isPastSection3 = false,
+        playingSplashdown = false,
+        isRocketCMRShown = false;
+
     function init() {
         // load rockets in with js
         document.getElementsByTagName('main')[0].insertAdjacentHTML('beforeend', document.getElementById('js-rkts').innerHTML);
@@ -126,10 +134,6 @@
         }
     }
 
-    var belowSection2 = false,
-        isRocketShown = true,
-        isRocketCLMShown = false,
-        isRocketCMShown = false;
     function section2Scroll(windowTop, windowHeight) {
         var rect = section2.getBoundingClientRect();
 
@@ -158,7 +162,6 @@
         }
     }
 
-    var isPastSection3 = false;
     function moonScroll(windowTop, windowHeight) {
         var moonHeight = moon.clientHeight,
             section3Rect = section3.getBoundingClientRect(),
@@ -216,8 +219,6 @@
         }
     }
 
-    var playingSplashdown = false,
-        isRocketCMRShown = false;
     function landingScroll(windowTop, windowHeight) {
         var section4Rect = section4.getBoundingClientRect();
 
@@ -234,7 +235,7 @@
                 isRocketCMRShown = false;
                 console.log('hide cmr');
             }
-            else if (section5Rect.top - (windowHeight / 4) <= 0 || windowTop >= windowTop + windowHeight) {
+            else if (section5Rect.top - (windowHeight / 4) <= 0) {
                 if(!isRocketCMRShown) {
                     TweenLite.to(rocketWithCM, .1, {autoAlpha: 0});
                     TweenLite.to(rocketWithCMR, .1, {autoAlpha: 1});
@@ -243,11 +244,12 @@
                 }
 
                 var section5Offset = getElementOffsetTop(section5),
-                    section5Height = section5.clientHeight;
-                if(!playingSplashdown && windowTop > section5Offset + (section5Height / 3)) {
+                    section5Height = section5.clientHeight,
+                    bodyHeight = document.documentElement.scrollHeight;
+
+                if(!playingSplashdown && (windowTop > section5Offset + (section5Height / 3) || windowTop + windowHeight === bodyHeight)) {
                     playingSplashdown = true;
                     var offsetTop = getElementOffsetTop(rocketWithCMR),
-                        bodyHeight = document.documentElement.scrollHeight,
                         earthOffset = getElementOffsetTop(earth2),
                         bottom = bodyHeight - offsetTop,
                         earthBottom = bottom - (bodyHeight - earthOffset) + (windowHeight * 0.05);
