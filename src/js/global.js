@@ -47,6 +47,9 @@
         }
     };
 
+    /*
+     * Helpers
+     */
     // load a script file
     function loadScript(url, callback) {
         var script = document.createElement('script');
@@ -59,9 +62,6 @@
         document.head.appendChild(script);
     }
 
-    /*
-     * Helpers
-     */
     function createCloud(svg) {
         var div = document.createElement('div');
         div.className = 'cld-h';
@@ -279,8 +279,9 @@
         ajax = new Ajax();
     supports.querySelector = "querySelectorAll" in document;
     supports.svg = document.implementation && document.implementation.hasFeature && document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure", "1.1");
+    supports.classList = "classList" in document.createElement("_");
 
-    if (supports.svg && supports.querySelector) {
+    if (supports.svg && supports.querySelector && supports.classList) {
         var firstHit = true,
             section2 = document.querySelector('.sec--2'),
             section3 = document.querySelector('.sec--3'),
@@ -322,6 +323,10 @@
         loadScript('j/TweenLite.js', function() {
             init();
         });
+    }
+    // if they are in an older browser let them access the content by acting like they don't have js
+    else {
+        document.getElementsByTagName('html')[0].className = 'no-js';
     }
 
 })(this, this.document);
