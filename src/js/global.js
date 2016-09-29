@@ -97,6 +97,7 @@
     function init() {
         // load rockets in with js
         document.getElementsByTagName('main')[0].insertAdjacentHTML('beforeend', document.getElementById('js-rkts').innerHTML);
+        moon.insertAdjacentHTML('beforeend', document.getElementById('js-mn').innerHTML);
         // get references to objects after putting them in the html
         rocketWithCLM = document.getElementById('js-rkt-clm');
         rocketWithCMR = document.getElementById('js-rkt-cm-r');
