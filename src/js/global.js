@@ -296,7 +296,7 @@
             timelineItems = document.querySelectorAll('.tm > li:not(.tm__btm)'),
             timelineItemsLength = timelineItems.length,
             timelineBottom = document.getElementById('js-tm-btm'),
-            earths = document.querySelectorAll('.earth__circle'),
+            earths = document.querySelectorAll('.earth__c'),
             rocketWithCLM,
             rocketWithCMR;
 

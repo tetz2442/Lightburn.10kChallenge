@@ -13,7 +13,7 @@ module.exports = function(grunt) {
                     ]
                 },
                 files: {
-                    'c/global.min.css': 'src/css/global.less'
+                    'c/g.min.css': 'src/css/global.less'
                 }
             }
         },
@@ -33,7 +33,7 @@ module.exports = function(grunt) {
                     sourceMap: true
                 },
                 files: {
-                    'j/global.min.js': [
+                    'j/g.min.js': [
                         'src/js/global.js'
                     ]
                 }

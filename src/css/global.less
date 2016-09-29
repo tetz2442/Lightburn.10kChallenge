@@ -1,4 +1,5 @@
-@keyframes earthFadeIn {
+/* Earth fade in */
+@keyframes efi {
     from {
         opacity: 0;
         transform: translate(-50%, -85%);
@@ -33,14 +34,8 @@ body {
     margin: 0;
 }
 
-.outer {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-}
-
 /* http://lea.verou.me/css3patterns/#starry-night */
-#stars {
+.outer {
     background-image:
             radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 10px),
             radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 5px),
@@ -48,25 +43,23 @@ body {
             radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 5px);
     background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px;
     background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
+    background-attachment: fixed;
+    position: relative;
     overflow: hidden;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 1;
-}
+    width: 100%;
 
-#line {
-    background-image: linear-gradient(fade(#cfbcad, 50%), fade(#cfbcad, 50%) 50%, transparent 50%);
-    background-size: 1px 24px;
-    left: 50%;
-    margin-left: -0.5px;
-    position: absolute;
-    height: 100%;
-    top: 0;
-    width: 1px;
-    z-index: 2;
+    &:before {
+        background-image: linear-gradient(fade(#cfbcad, 50%), fade(#cfbcad, 50%) 50%, transparent 50%);
+        background-size: 1px 24px;
+        content: '';
+        left: 50%;
+        position: absolute;
+        height: 100%; 
+        top: 0;
+        transform: translateX(-50%);
+        width: 1px;
+        z-index: 2;
+    }
 }
 
 .earth {
@@ -80,12 +73,12 @@ body {
 }
 
 .earth:not(.earth--btm) {
-    animation: earthFadeIn 1000ms 400ms ease 1;
+    animation: efi 1s 0.4s ease 1;
     animation-fill-mode: forwards;
     opacity: 0;
 }
 
-.earth__circle {
+.earth__c {
     background: #869fa8;
     border-radius: 50%;
     box-shadow: inset 0 0 40px 10px #667a7f,
@@ -104,19 +97,20 @@ body {
     transform: translate(-50%, 60%);
 }
 
-@keyframes cloud {
+/* cloud animation */
+@keyframes cl {
      from { transform: rotate(10deg) translate(330%); }
      to { transform: rotate(170deg) translate(330%); }
 }
 
-@keyframes cloudBottom {
+@keyframes clBtm {
     from { transform: rotate(190deg) translate(330%); }
     to { transform: rotate(350deg) translate(330%); }
 }
 
 /* http://www.useragentman.com/blog/2013/03/03/animating-circular-paths-using-css3-transitions/# */
 .cld-h {
-    animation: cloud 36s infinite linear;
+    animation: cl 36s infinite linear;
     height: 20%;
     left: 50%;
     margin: -10% 0 0 -10%;
@@ -126,7 +120,7 @@ body {
 }
 
 .earth--btm .cld-h {
-    animation-name: cloudBottom;
+    animation-name: clBtm;
 }
 
 .cld-h:nth-child(2) {
@@ -192,7 +186,7 @@ body {
     z-index: 10;
 }
 
-.sec__title-border {
+.sec__title-b {
     border-bottom: 2px solid fade(#807670, 30%);
     left: 0;
     max-width: none;
