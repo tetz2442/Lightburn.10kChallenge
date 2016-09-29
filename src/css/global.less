@@ -61,7 +61,7 @@ body {
     background-image: linear-gradient(fade(#cfbcad, 50%), fade(#cfbcad, 50%) 50%, transparent 50%);
     background-size: 1px 24px;
     left: 50%;
-    margin-left: 0.5px;
+    margin-left: -0.5px;
     position: absolute;
     height: 100%;
     top: 0;
@@ -503,8 +503,14 @@ body {
     }
 
     .tm > .tm__btm {
-        bottom: 4vw;
+        bottom: 2vw;
         max-width: 700px;
         width: 45vw;
+    }
+}
+
+@media all and (min-width: 1200px) {
+    .tm > .tm__btm {
+        bottom: 4vw;
     }
 }
