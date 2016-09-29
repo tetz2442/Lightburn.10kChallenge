@@ -101,6 +101,7 @@
         // get references to objects after putting them in the html
         rocketWithCLM = document.getElementById('js-rkt-clm');
         rocketWithCMR = document.getElementById('js-rkt-cm-r');
+        rocketWithCM = document.getElementById('js-rkt-cm')
 
         section3.classList.add('section--expand');
         moon.classList.add('moon--start-top');
@@ -145,7 +146,6 @@
                 TweenLite.to(rocketWithCLM, .15, {autoAlpha: 1});
                 isRocketShown = false;
                 isRocketCLMShown = true;
-                console.log('hide rocket');
             }
             belowSection2 = true;
             rocket.classList.add('rkt--anim-remove');
@@ -156,7 +156,6 @@
                 TweenLite.to(rocketWithCLM, .15, {autoAlpha: 0});
                 isRocketShown = true;
                 isRocketCLMShown = false;
-                console.log('show rocket');
             }
             firstHit = false;
             belowSection2 = false;
@@ -183,12 +182,10 @@
         if(!isRocketCLMShown && belowSection2 && section3Rect.top - (windowHeight / 2) > 0) {
             TweenLite.to(rocketWithCLM, .25, {autoAlpha: 1});
             isRocketCLMShown = true;
-            console.log('show clm');
         }
         else if(isRocketCLMShown && section3Rect.top - (windowHeight / 2) <= 0) {
             TweenLite.to(rocketWithCLM, .25, { autoAlpha: 0 });
             isRocketCLMShown = false;
-            console.log('hide clm');
         }
 
         if(isPastSection3) {
@@ -204,7 +201,6 @@
                 if(isRocketCMShown) {
                     TweenLite.to(rocketWithCM, .1, {autoAlpha: 0});
                     isRocketCMShown = false;
-                    console.log('cm hide');
                 }
             }
             // are below section 3 bottom?
@@ -214,7 +210,6 @@
                 if(!isRocketCMShown) {
                     TweenLite.to(rocketWithCM, .15, {autoAlpha: 1});
                     isRocketCMShown = true;
-                    console.log('cm show');
                 }
             }
         }
@@ -234,14 +229,12 @@
                 rocketWithCMR.classList.remove('rkt--splashdown');
                 playingSplashdown = false;
                 isRocketCMRShown = false;
-                console.log('hide cmr');
             }
             else if (section5Rect.top - (windowHeight / 4) <= 0) {
                 if(!isRocketCMRShown) {
                     TweenLite.to(rocketWithCM, .1, {autoAlpha: 0});
                     TweenLite.to(rocketWithCMR, .1, {autoAlpha: 1});
                     isRocketCMRShown = true;
-                    console.log('show cmr');
                 }
 
                 var section5Offset = getElementOffsetTop(section5),
@@ -292,12 +285,12 @@
             section5 = document.querySelector('.sec--5'),
             moon = document.querySelector('.moon'),
             rocket = document.getElementById('js-rkt'),
-            rocketWithCM = document.getElementById('js-rkt-cm'),
             earth2 = document.querySelector('.earth--btm'),
             timelineItems = document.querySelectorAll('.tm > li:not(.tm__btm)'),
             timelineItemsLength = timelineItems.length,
             timelineBottom = document.getElementById('js-tm-btm'),
             earths = document.querySelectorAll('.earth__c'),
+            rocketWithCM,
             rocketWithCLM,
             rocketWithCMR;
 
