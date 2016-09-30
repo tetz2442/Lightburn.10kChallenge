@@ -69,6 +69,7 @@
         return div;
     }
 
+    // Helper to get the window top position
     function getWindowTop() {
         //http://stackoverflow.com/questions/3464876/javascript-get-window-x-y-position-for-scroll
         return window.pageYOffset || document.documentElement.scrollTop;
@@ -124,6 +125,9 @@
         landingScroll(top, windowHeight);
     }
 
+    /*
+     * Checks if a timeline element is in the viewport
+     */
     function timelineScroll(windowTop, windowHeight) {
         for(var i = 0; i < timelineItemsLength; i++) {
             if(!timelineItems[i].classList.contains('show')) {
@@ -136,32 +140,56 @@
         }
     }
 
+    /*
+     * Handles first rocket transition
+     */
     function section2Scroll(windowTop, windowHeight) {
         var rect = section2.getBoundingClientRect();
 
         // are we below section 2?
         if(rect.top - (windowHeight / 2) <= 0) {
+            rocket.classList.add('rkt--anim-remove');
             if(isRocketShown) {
-                TweenLite.to(rocket, .15, {autoAlpha: 0});
-                TweenLite.to(rocketWithCLM, .15, {autoAlpha: 1});
+                if(!firstHit) {
+                    TweenLite.to(rocket, 1.2, {
+                        y: '-100%',
+                        ease: Power0.easeIn,
+                        onComplete: function () {
+                            TweenLite.set(rocket, {
+                                clearProps: 'transform',
+                                autoAlpha: 0
+                            });
+                        }
+                    });
+                }
+                else {
+                    TweenLite.to(rocket, 0, { autoAlpha: 0 });
+                }
+                TweenLite.to(rocketWithCLM, .15, { autoAlpha: 1 });
                 isRocketShown = false;
                 isRocketCLMShown = true;
             }
             belowSection2 = true;
-            rocket.classList.add('rkt--anim-remove');
         }
         else {
             if(!isRocketShown) {
-                TweenLite.to(rocket, .15, {autoAlpha: 1});
-                TweenLite.to(rocketWithCLM, .15, {autoAlpha: 0});
+                TweenLite.killTweensOf(rocket);
+                TweenLite.set(rocket, {
+                    clearProps: 'transform'
+                });
+                TweenLite.to(rocket, .15, { autoAlpha: 1 });
+                TweenLite.to(rocketWithCLM, .15, { autoAlpha: 0 });
                 isRocketShown = true;
                 isRocketCLMShown = false;
             }
-            firstHit = false;
             belowSection2 = false;
         }
+        firstHit = false;
     }
 
+    /*
+     * Handles the moon portion, fixes the moon to the viewport
+     */
     function moonScroll(windowTop, windowHeight) {
         var moonHeight = moon.clientHeight,
             section3Rect = section3.getBoundingClientRect(),
@@ -199,7 +227,7 @@
                 moon.classList.remove('moon--bottom');
 
                 if(isRocketCMShown) {
-                    TweenLite.to(rocketWithCM, .1, {autoAlpha: 0});
+                    TweenLite.to(rocketWithCM, .1, { autoAlpha: 0 });
                     isRocketCMShown = false;
                 }
             }
@@ -208,13 +236,16 @@
                 moon.classList.add('moon--bottom');
 
                 if(!isRocketCMShown) {
-                    TweenLite.to(rocketWithCM, .15, {autoAlpha: 1});
+                    TweenLite.to(rocketWithCM, .15, { autoAlpha: 1 });
                     isRocketCMShown = true;
                 }
             }
         }
     }
 
+    /*
+     * Handles the bottom portion of the rocket logic, shows/hides the command module and splashdown animation
+     */
     function landingScroll(windowTop, windowHeight) {
         var section4Rect = section4.getBoundingClientRect();
 
@@ -222,9 +253,12 @@
             var section5Rect = section5.getBoundingClientRect();
 
             if (isRocketCMRShown && section5Rect.top - (windowHeight / 4) > 0) {
-                TweenLite.to(rocketWithCM, .1, {autoAlpha: 1});
-                TweenLite.set(rocketWithCMR, {clearProps: 'transform'});
-                TweenLite.to(rocketWithCMR, 0, {autoAlpha: 0});
+                TweenLite.killTweensOf(rocketWithCM);
+                TweenLite.set(rocketWithCM, {
+                    clearProps: 'transform'
+                });
+                TweenLite.to(rocketWithCM, .1, { autoAlpha: 1 });
+                TweenLite.set(rocketWithCMR, { clearProps: 'transform', autoAlpha: 0 });
                 rocketWithCMR.style.bottom = '';
                 rocketWithCMR.classList.remove('rkt--splashdown');
                 playingSplashdown = false;
@@ -232,8 +266,19 @@
             }
             else if (section5Rect.top - (windowHeight / 4) <= 0) {
                 if(!isRocketCMRShown) {
-                    TweenLite.to(rocketWithCM, .1, {autoAlpha: 0});
-                    TweenLite.to(rocketWithCMR, .1, {autoAlpha: 1});
+                    rocketWithCM.classList.add('rkt--anim-remove');
+                    TweenLite.to(rocketWithCM, 1, {
+                        y: '-200%',
+                        ease: Power0.easeIn,
+                        onComplete: function() {
+                            TweenLite.set(rocketWithCM, {
+                                clearProps: 'transform',
+                                autoAlpha: 0
+                            });
+                            rocketWithCM.classList.remove('rkt--anim-remove');
+                        }
+                    });
+                    TweenLite.to(rocketWithCMR, .1, { autoAlpha: 1 });
                     isRocketCMRShown = true;
                 }
 
@@ -294,6 +339,7 @@
             rocketWithCLM,
             rocketWithCMR;
 
+        // gets the clouds via ajax
         ajax.send({
             url: 's/cl.svg',
             type: 'get',
@@ -304,7 +350,7 @@
                 }
             }
         });
-
+        // there are two different looking clouds
         ajax.send({
             url: 's/cl2.svg',
             type: 'get',
@@ -316,6 +362,7 @@
             }
         });
 
+        // after tweenlite is loaded, start the other logic
         loadScript('j/TweenLite.js', function() {
             init();
         });

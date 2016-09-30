@@ -78,6 +78,7 @@ body {
     opacity: 0;
 }
 
+/* Earth circle */
 .earth__c {
     background: #869fa8;
     border-radius: 50%;
@@ -149,6 +150,7 @@ body {
     width: 100%;
 }
 
+/* Section */
 .sec {
     clear: both;
     position: relative;
@@ -170,7 +172,7 @@ body {
 }
 
 .sec__title,
-.sec__title-border {
+.sec__title-b {
     color: #cfbcad;
     font-size: 3.5rem;
     left: 50%;
@@ -186,6 +188,7 @@ body {
     z-index: 10;
 }
 
+/* Section title border */
 .sec__title-b {
     border-bottom: 2px solid fade(#807670, 30%);
     left: 0;
@@ -297,6 +300,7 @@ body {
     }
 }
 
+/* Rocket */
 .rkt {
     left: 50%;
     position: fixed;
@@ -312,6 +316,7 @@ body {
     animation: rktFadeIn 1000ms 600ms ease 1;
     animation-fill-mode: forwards;
     top: -25vw;
+    z-index: 5;
 }
 
 .no-js .rkt--df {
@@ -320,6 +325,7 @@ body {
 
 .rkt--anim-remove {
     animation: none;
+    transition: none;
     opacity: 1;
 }
 
@@ -333,6 +339,10 @@ body {
 .rkt--cm,
 .rkt--cm-r {
     opacity: 0;
+}
+
+.rocket--cm {
+    z-index: 5;
 }
 
 .rkt__img {
@@ -357,13 +367,14 @@ body {
     height: 4vw;
 }
 
+/* Timeline */
 .tm {
     list-style: none;
     margin: 0 auto;
     max-width: 180rem;
     padding: 4rem 6.25%;
     position: relative;
-    z-index: 5;
+    z-index: 6;
 }
 
 .tm > li {

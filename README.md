@@ -1,2 +1,2 @@
-# Lightburn.10kChallenge
-Lightburn submission to the a-k-apart challenge
+# 10k Challenge
+Challenge is based on the Apollo 11 mission to the moon.
