@@ -75,13 +75,27 @@
         return window.pageYOffset || document.documentElement.scrollTop;
     }
 
-    //http://stackoverflow.com/questions/442404/retrieve-the-position-x-y-of-an-html-element
+    // http://stackoverflow.com/questions/442404/retrieve-the-position-x-y-of-an-html-element
     function getElementOffsetTop(el) {
         var bodyRect = document.body.getBoundingClientRect(),
             elemRect = el.getBoundingClientRect(),
             offset   = elemRect.top - bodyRect.top;
 
         return offset;
+    }
+
+    // http://sampsonblog.com/749/simple-throttle-function
+    function throttle (callback, limit) {
+        var wait = false;                 // Initially, we're not waiting
+        return function () {              // We return a throttled function
+            if (!wait) {                  // If we're not waiting
+                callback.call();          // Execute users function
+                wait = true;              // Prevent future invocations
+                setTimeout(function () {  // After a period of time
+                    wait = false;         // And allow future invocations
+                }, limit);
+            }
+        }
     }
 
     /*
@@ -112,7 +126,8 @@
     }
 
     function addListeners() {
-        window.addEventListener('scroll', scrollEvent);
+        // throttling this will reduce the calls by 50%
+        window.addEventListener('scroll', throttle(scrollEvent, 50));
     }
 
     function scrollEvent() {
