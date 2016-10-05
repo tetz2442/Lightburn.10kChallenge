@@ -2,54 +2,34 @@
     'use strict';
 
     /*
-     * Simple ajax class
-     */
-    function Ajax() { }
-
-    Ajax.prototype.createXHR = function() {
-        return new XMLHttpRequest();
-    };
-
-    Ajax.prototype.send = function(options) {
-        var self = this,
-            xhr = this.createXHR();
-
-        xhr.open( options.type, options.url );
-
-        xhr.onload = function() {
-            // Determine if successful
-            var isSuccess = xhr.status >= 200 && xhr.status < 300 || xhr.status === 304;
-
-            if(isSuccess) {
-                self.onSuccess(options, xhr);
-            }
-            else {
-                self.onError(options, xhr);
-            }
-        };
-
-        xhr.onerror = function() {
-            self.onError(options, xhr);
-        };
-
-        xhr.send(options.data || null);
-    };
-
-    Ajax.prototype.onSuccess = function(options, xhr) {
-        if(options.success) {
-            options.success(xhr.responseText, xhr);
-        }
-    };
-
-    Ajax.prototype.onError = function(options, xhr) {
-        if(options.error) {
-            options.error(xhr, xhr.status, xhr.responseText);
-        }
-    };
-
-    /*
      * Helpers
      */
+    // https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Detecting_CSS_animation_support
+    function supportsAnimation() {
+        var animation = false,
+            animationstring = 'animation',
+            keyframeprefix = '',
+            domPrefixes = 'Webkit Moz O ms Khtml'.split(' '),
+            pfx  = '',
+            elm = document.createElement('div');
+
+        if( elm.style.animationName !== undefined ) { animation = true; }
+
+        if( animation === false ) {
+            for( var i = 0; i < domPrefixes.length; i++ ) {
+                if( elm.style[ domPrefixes[i] + 'AnimationName' ] !== undefined ) {
+                    pfx = domPrefixes[ i ];
+                    animationstring = pfx + 'Animation';
+                    keyframeprefix = '-' + pfx.toLowerCase() + '-';
+                    animation = true;
+                    break;
+                }
+            }
+        }
+
+        return animation;
+    }
+
     // load a script file
     function loadScript(url, callback) {
         var script = document.createElement('script');
@@ -60,13 +40,6 @@
         };
 
         document.head.appendChild(script);
-    }
-
-    function createCloud(svg) {
-        var div = document.createElement('div');
-        div.className = 'cld-h';
-        div.innerHTML = svg;
-        return div;
     }
 
     // Helper to get the window top position
@@ -112,7 +85,11 @@
     function init() {
         // load rockets in with js
         document.getElementsByTagName('main')[0].insertAdjacentHTML('beforeend', document.getElementById('js-rkts').innerHTML);
-        moon.insertAdjacentHTML('beforeend', document.getElementById('js-mn').innerHTML);
+        // only include moon and cloud assets if animations are supported
+        if(supports.animation) {
+            moon.insertAdjacentHTML('beforeend', document.getElementById('js-mn').innerHTML);
+            addClouds();
+        }
         // get references to objects after putting them in the html
         rocketWithCLM = document.getElementById('js-rkt-clm');
         rocketWithCMR = document.getElementById('js-rkt-cm-r');
@@ -130,6 +107,15 @@
         window.addEventListener('scroll', throttle(scrollEvent, 50));
     }
 
+    // get cloud html and insert it
+    function addClouds() {
+        var clouds = document.getElementById('js-clds').innerHTML;
+        for(var i = 0; i < earths.length; i++) {
+            earths[i].insertAdjacentHTML('beforeend', clouds);
+        }
+    }
+
+    // call different functions that need to be run on scroll
     function scrollEvent() {
         var top = getWindowTop(),
             windowHeight = window.innerHeight;
@@ -151,7 +137,6 @@
                     timelineItems[i].classList.add('show');
                 }
             }
-
         }
     }
 
@@ -331,11 +316,11 @@
     /*
      * Figure out what the current browser supports
      */
-    var supports = {},
-        ajax = new Ajax();
+    var supports = {};
     supports.querySelector = "querySelectorAll" in document;
     supports.svg = document.implementation && document.implementation.hasFeature && document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure", "1.1");
     supports.classList = "classList" in document.createElement("_");
+    supports.animation = supportsAnimation();
 
     if (supports.svg && supports.querySelector && supports.classList) {
         var firstHit = true,
@@ -353,29 +338,6 @@
             rocketWithCM,
             rocketWithCLM,
             rocketWithCMR;
-
-        // gets the clouds via ajax
-        ajax.send({
-            url: 's/cl.svg',
-            type: 'get',
-            success: function(data) {
-                for(var i = 0; i < earths.length; i++) {
-                    earths[i].appendChild(createCloud(data));
-                    earths[i].appendChild(createCloud(data));
-                }
-            }
-        });
-        // there are two different looking clouds
-        ajax.send({
-            url: 's/cl2.svg',
-            type: 'get',
-            success: function(data) {
-                for(var i = 0; i < earths.length; i++) {
-                    earths[i].appendChild(createCloud(data));
-                    earths[i].appendChild(createCloud(data));
-                }
-            }
-        });
 
         // after tweenlite is loaded, start the other logic
         loadScript('j/TweenLite.js', function() {
